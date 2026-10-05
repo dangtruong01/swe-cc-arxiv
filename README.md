@@ -1,16 +1,19 @@
-# SWE-CC: Benchmarking Repository Policy Compliance for Coding Agents
+# Correct Code, Broken Contributions? SWE-CC: Benchmarking Repository Policy Compliance for Coding Agents
 
-Companion code and data for *Correct Code, Broken Contributions? SWE-CC: Benchmarking
-Repository Policy Compliance for Coding Agents*.
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+SWE-CC measures whether coding agents follow repository **contribution policies**
+(code and test style, testing workflow, commit and pull-request conventions,
+AI-assistance disclosure) while solving real issues. It checks both what agents **did**
+(their trajectories) and what they **delivered** (commits, patches, pull-request text).
+This repository provides the benchmark, evaluation code, and paper results.
 
 **Authors (paper order):** Truong Hai Dang (Singapore Management University), Rayner Goh
 (Singapore Management University), Thanh Le-Cong (Singapore University of Technology and
 Design), and Yintong Huo (Singapore Management University; corresponding author).
 
-SWE-CC measures whether a coding agent follows a repository's **contribution policies**
-(code and test style, testing workflow, commit and pull-request conventions,
-AI-assistance disclosure) while it solves a real issue. It checks both what the agent
-**did** (its trajectory) and what it **delivered** (commits, patch, pull-request text).
+**Keywords:** coding agents, software engineering benchmarks, repository policies,
+contribution compliance.
 
 - **823 policies** from the contributor documentation of the 12 SWE-bench Verified
   repositories, each compiled into a deterministic **checker function**, with no LLM judge
