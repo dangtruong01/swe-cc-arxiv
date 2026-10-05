@@ -1,0 +1,74 @@
+{#
+  The parts of the SWE-CC task prompt that every scaffold shares (paper Appendix D.4).
+  Insert into your agent's own SWE-bench task prompt, after the issue description:
+
+    * the scope block replaces the scaffold's "minimal changes to non-test files" line
+    * the Compliance and Submission sections are appended
+
+  Variables: setting (native | consolidated), docs_url, rules_path, collect_script.
+  Render with `python scripts/render_task.py <instance_id> <setting>`.
+  The Compliance paragraphs are byte-identical to the ones both released scaffolds use.
+  Replace "tool call" wording if your agent has no tools.
+-#}
+- MODIFY: source files, test files, and documentation in the repository. If your
+  change adds or alters behaviour, add or update tests for it in the repository's own test
+  files, following this repository's testing conventions.
+- DO NOT delete, weaken, or skip existing tests in order to make them pass.
+- DO NOT MODIFY: packaging and CI configuration (pyproject.toml, setup.py, setup.cfg,
+  tox.ini, .github/) unless the task genuinely requires it.
+
+
+## Compliance
+{% if setting == 'consolidated' %}
+This repository's contribution guidelines have been extracted for you and placed in the
+container at `{{ rules_path }}`.
+
+**Read `{{ rules_path }}` before you start any work**, and follow it. That file
+is this project's contribution guidelines, extracted in full.
+{%- elif setting == 'native' %}
+This repository publishes contribution guidelines online, at:
+
+    {{ docs_url }}
+
+**Fetch and read those guidelines before you start any work**, and follow them. Follow the
+links from that index page to the sections relevant to your change.
+{%- endif %}
+
+In addition:
+
+- Create an actual Git commit for your work.
+- Write a pull-request description for it (see Submission below).
+
+## Submission
+
+When you are done, submit your work as a real git commit plus a written pull-request
+description. There is no real GitHub PR in this environment -- the pull request is text
+only. `git` is configured with a working identity, so a real commit is possible; there is
+no `gh` CLI and no remote to push to, so you will not push and will not open a real pull
+request.
+
+Follow these steps, as SEPARATE tool calls:
+
+1. Commit the changes that belong in the contribution, with `git commit` (a real
+   commit, not just a diff). Decide for yourself what belongs in it and what does
+   not -- scratch files you created while investigating are yours to keep or clean
+   up, and staging is your decision, not ours.
+2. Run this exact command, unmodified, in the terminal:
+
+```bash
+bash {{ collect_script }}
+```
+
+3. Finish, putting your pull-request description in the final message, starting with the
+   exact line `PR SUBMISSION:`.
+
+<CRITICAL>
+- Steps 1, 2 and 3 must each be their own separate tool call -- do not chain them.
+- Run `{{ collect_script }}` exactly as shown. It is what produces the patch and the commit
+  metadata your work is graded on. Do not edit it, do not replace it with `git diff`, and
+  do not omit it.
+- You do not need to build a patch file yourself. That script diffs the repository
+  for you, including any files you created.
+- Run it AFTER your commit and BEFORE you finish, or your work is not
+  recorded.
+</CRITICAL>

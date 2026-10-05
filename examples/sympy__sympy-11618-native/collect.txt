@@ -1,0 +1,155 @@
+===PROBE===
+probe_version=1
+instance_id=sympy__sympy-11618
+base_commit=360290c4c401e386db60723ddb0109ed499c9f6e
+base_commit_date=2016-09-15T12:21:23-05:00
+dataset_created_at=2016-09-15T20:01:58Z
+condition=naive
+model=openrouter/deepseek/deepseek-v4-flash-0731
+framework=mini-swe-agent
+reasoning=default
+attempt_n=1
+start_head=5d04139ee3094b08aac0c68148d56708936d2b13
+start_branch=master
+hooks_installed=0
+hooks_path=/dev/null
+repo_hooks_path=
+hook_config_present=no
+precommit_on_path=missing
+tool_ruff=missing
+tool_flake8=/opt/miniconda3/envs/testbed/bin/flake8
+tool_black=missing
+tool_isort=missing
+tool_pytest=missing
+network_tcp=ok
+network_docs=ok
+docs_url=https://docs.sympy.org/dev/contributing/index.html
+rules_file_present=no
+rules_file_sha256=
+rules_file_chars=0
+rules_file_lines=0
+rules_file_path=/rules/CONTRIBUTING_RULES.md
+git_user_name=mini-swe-agent-bot
+git_user_email=mini-swe-agent-bot@example.com
+python_version=3.9.20
+git_version=2.34.1
+===BRANCH===
+instance_id=sympy__sympy-11618
+start_head=5d04139ee3094b08aac0c68148d56708936d2b13
+start_head_source=run_meta
+head=b40ce1eb1dd0a14a609fdb58ac385bcbcf2bfe3f
+branch=master
+n_commits=1
+===LOG===
+commit b40ce1eb1dd0a14a609fdb58ac385bcbcf2bfe3f
+tree 8cdea2650ccb6f0597d94f0cf06ac6b9b52173c0
+parent 5d04139ee3094b08aac0c68148d56708936d2b13
+author mini-swe-agent-bot <mini-swe-agent-bot@example.com> 1787811108 +0000
+committer mini-swe-agent-bot <mini-swe-agent-bot@example.com> 1787811108 +0000
+
+    Fix distance computation for points of different dimensions
+    
+    When computing the Euclidean distance between two Points of different
+    dimensions, the shorter point was zipped with the longer one and the
+    missing coordinates were silently ignored. This led to incorrect results,
+    e.g. Point(2,0).distance(Point(1,0,2)) returned 1 instead of sqrt(5).
+    
+    Now the points are padded to the same dimension using zeros for the
+    missing coordinates before computing the distance.
+
+ sympy/geometry/point.py            | 11 ++++++++---
+ sympy/geometry/tests/test_point.py |  5 +++++
+ 2 files changed, 13 insertions(+), 3 deletions(-)
+===STATUS===
+===PATCH_COMMITTED===
+diff --git a/sympy/geometry/point.py b/sympy/geometry/point.py
+index 593048464..f242c90a2 100644
+--- a/sympy/geometry/point.py
++++ b/sympy/geometry/point.py
+@@ -11,7 +11,7 @@
+ from __future__ import division, print_function
+ 
+ from sympy.core import S, sympify
+-from sympy.core.compatibility import iterable
++from sympy.core.compatibility import iterable, zip_longest
+ from sympy.core.containers import Tuple
+ from sympy.simplify import nsimplify, simplify
+ from sympy.geometry.exceptions import GeometryError
+@@ -266,8 +266,13 @@ def distance(self, p):
+         sqrt(x**2 + y**2)
+ 
+         """
+-        return sqrt(sum([(a - b)**2 for a, b in zip(
+-            self.args, p.args if isinstance(p, Point) else p)]))
++        if isinstance(p, Point):
++            # The distance is calculated with the assumption that the
++            # coordinates that are missing from one point are zero, so the
++            # points are padded to the same dimension.
++            return sqrt(sum((a - b)**2 for a, b in zip_longest(
++                self, p, fillvalue=S.Zero)))
++        return sqrt(sum((a - b)**2 for a, b in zip(self, p)))
+ 
+     def taxicab_distance(self, p):
+         """The Taxicab Distance from self to point p.
+diff --git a/sympy/geometry/tests/test_point.py b/sympy/geometry/tests/test_point.py
+index c7b2d30f1..985372d17 100644
+--- a/sympy/geometry/tests/test_point.py
++++ b/sympy/geometry/tests/test_point.py
+@@ -41,6 +41,11 @@ def test_point():
+     assert Point.distance(p3, p4) == sqrt(2)
+     assert Point.distance(p1, p1) == 0
+     assert Point.distance(p3, p2) == sqrt(p2.x**2 + p2.y**2)
++    # depth is relative to the dimension of the points
++    assert Point.distance(Point(2, 0), Point(1, 0, 2)) == sqrt(5)
++    assert Point.distance(Point(1, 0, 2), Point(2, 0)) == sqrt(5)
++    assert Point.distance(Point(1, 0, 2), Point(2, 0)) == \
++        Point.distance(Point(2, 0, 0), Point(1, 0, 2))
+ 
+     assert Point.taxicab_distance(p4, p3) == 2
+ 
+===PATCH===
+diff --git a/sympy/geometry/point.py b/sympy/geometry/point.py
+index 593048464..f242c90a2 100644
+--- a/sympy/geometry/point.py
++++ b/sympy/geometry/point.py
+@@ -11,7 +11,7 @@
+ from __future__ import division, print_function
+ 
+ from sympy.core import S, sympify
+-from sympy.core.compatibility import iterable
++from sympy.core.compatibility import iterable, zip_longest
+ from sympy.core.containers import Tuple
+ from sympy.simplify import nsimplify, simplify
+ from sympy.geometry.exceptions import GeometryError
+@@ -266,8 +266,13 @@ def distance(self, p):
+         sqrt(x**2 + y**2)
+ 
+         """
+-        return sqrt(sum([(a - b)**2 for a, b in zip(
+-            self.args, p.args if isinstance(p, Point) else p)]))
++        if isinstance(p, Point):
++            # The distance is calculated with the assumption that the
++            # coordinates that are missing from one point are zero, so the
++            # points are padded to the same dimension.
++            return sqrt(sum((a - b)**2 for a, b in zip_longest(
++                self, p, fillvalue=S.Zero)))
++        return sqrt(sum((a - b)**2 for a, b in zip(self, p)))
+ 
+     def taxicab_distance(self, p):
+         """The Taxicab Distance from self to point p.
+diff --git a/sympy/geometry/tests/test_point.py b/sympy/geometry/tests/test_point.py
+index c7b2d30f1..985372d17 100644
+--- a/sympy/geometry/tests/test_point.py
++++ b/sympy/geometry/tests/test_point.py
+@@ -41,6 +41,11 @@ def test_point():
+     assert Point.distance(p3, p4) == sqrt(2)
+     assert Point.distance(p1, p1) == 0
+     assert Point.distance(p3, p2) == sqrt(p2.x**2 + p2.y**2)
++    # depth is relative to the dimension of the points
++    assert Point.distance(Point(2, 0), Point(1, 0, 2)) == sqrt(5)
++    assert Point.distance(Point(1, 0, 2), Point(2, 0)) == sqrt(5)
++    assert Point.distance(Point(1, 0, 2), Point(2, 0)) == \
++        Point.distance(Point(2, 0, 0), Point(1, 0, 2))
+ 
+     assert Point.taxicab_distance(p4, p3) == 2
+ 

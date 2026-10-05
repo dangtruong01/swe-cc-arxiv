@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use SWE-CC, please cite the accompanying paper."
+type: software
+title: "SWE-CC: Benchmarking Repository Policy Compliance for Coding Agents"
+authors:
+  - family-names: Dang
+    given-names: Truong Hai
+  - family-names: Goh
+    given-names: Rayner
+  - family-names: Le-Cong
+    given-names: Thanh
+  - family-names: Huo
+    given-names: Yintong
+version: 1.0.0
+date-released: 2026-10-05
+repository-code: "https://github.com/dangtruong01/swe-cc-arxiv"
+license: MIT

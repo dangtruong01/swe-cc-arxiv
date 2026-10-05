@@ -1,0 +1,824 @@
+policy_id,project,category,evidence_type,check,human_in_the_loop,policy
+ASTROPY-C001,astropy,Tests and test style,differential,approximate,0,Close every file a test opens so no unhandled ResourceWarning is raised.
+ASTROPY-C002,astropy,Tests and test style,output,exact,0,Name test modules ``test_*.py`` or ``*_test.py``.
+ASTROPY-C003,astropy,Tests and test style,output,approximate,0,Prefix test functions and methods with ``test_``.
+ASTROPY-C004,astropy,Tests and test style,output,approximate,0,Give test classes a ``Test`` prefix and no ``__init__`` method.
+ASTROPY-C006,astropy,Tests and test style,output,exact,0,Put a sub-package's tests in that sub-package's own ``tests/`` directory.
+ASTROPY-C007,astropy,Tests and test style,output,approximate,0,Include an ``__init__.py`` file in every ``tests`` directory.
+ASTROPY-C008,astropy,Tests and test style,output,approximate,0,Put tests that span two or more sub-packages in ``astropy/tests/``.
+ASTROPY-C010,astropy,Tests and test style,output,approximate,0,Include the URL of the reported issue in the regression test.
+ASTROPY-C012,astropy,Tests and test style,output,approximate,0,Mark any test that retrieves remote data with ``@pytest.mark.remote_data``.
+ASTROPY-C013,astropy,Tests and test style,output,approximate,0,Flag a doctest that retrieves remote data with ``# doctest: +REMOTE_DATA``.
+ASTROPY-C014,astropy,Tests and test style,output,approximate,0,Write files created by a test into the ``tmp_path`` fixture directory rather than a permanent location.
+ASTROPY-C016,astropy,Tests and test style,output,approximate,0,Skip a test that needs an optional dependency when that dependency is absent.
+ASTROPY-C017,astropy,Tests and test style,output,approximate,0,Take the skip condition from the ``HAS_*`` flags in ``astropy.utils.compat.optional_deps``.
+ASTROPY-C018,astropy,Specialized changes,output,approximate,0,Add a ``HAS_*`` flag to ``astropy/utils/compat/optional_deps.py`` for any new optional dependency.
+ASTROPY-C019,astropy,Specialized changes,output,approximate,0,"Record a new optional dependency in ``[project.optional-dependencies]`` in ``pyproject.toml``, under ``all`` for runtime use or ``test_all`` for test-only use."
+ASTROPY-C020,astropy,Tests and test style,output,approximate,0,Assert expected warnings with the ``pytest.warns`` context manager.
+ASTROPY-C021,astropy,Tests and test style,output,approximate,0,Assert expected exceptions with the ``pytest.raises`` context manager.
+ASTROPY-C023,astropy,Tests and test style,output,approximate,0,Mark a block excluded from coverage with a ``# pragma: no cover`` comment at its start.
+ASTROPY-C024,astropy,Tests and test style,output,exact,0,Decorate figure tests with ``@figure_test`` from ``astropy.tests.figures`` rather than ``@pytest.mark.mpl_image_compare``.
+ASTROPY-C025,astropy,Tests and test style,differential,exact,0,Write docstring and narrative examples so they run correctly as doctests.
+ASTROPY-C026,astropy,Tests and test style,output,approximate,0,Mark a non-executable doctest example with ``# doctest: +SKIP``.
+ASTROPY-C027,astropy,Tests and test style,output,exact,0,Skip a module's doctests by listing wildcard patterns in a module-level ``__doctest_skip__``.
+ASTROPY-C028,astropy,Tests and test style,output,exact,0,Declare a doctest's optional-dependency requirements in a module-level ``__doctest_requires__`` dictionary.
+ASTROPY-C029,astropy,Tests and test style,output,approximate,0,Skip a doctest block in narrative documentation with the ``.. doctest-skip::`` directive (or ``.. doctest-skip-all``).
+ASTROPY-C030,astropy,Tests and test style,output,approximate,0,Gate a doctest block in narrative documentation on a dependency with the ``.. doctest-requires::`` directive.
+ASTROPY-C032,astropy,Tests and test style,output,approximate,0,Ignore a doctest's output entirely with the ``# doctest: +IGNORE_OUTPUT`` flag.
+ASTROPY-C033,astropy,Tests and test style,output,approximate,0,Compare floating-point doctest output with the ``# doctest: +FLOAT_CMP`` flag.
+ASTROPY-C036,astropy,Tests and test style,trajectory,approximate,0,Run the tests with ``--remote-data`` when the bug involves remote data access.
+ASTROPY-C037,astropy,Tests and test style,differential,approximate,0,Write a test that fails before the fix and passes after it.
+ASTROPY-C050,astropy,Code and quality,trajectory,approximate,0,Review and re-stage any file that pre-commit rewrote before committing.
+ASTROPY-C056,astropy,Tests and test style,differential,approximate,0,Add tests covering new code.
+ASTROPY-C059,astropy,Git and commit conventions,output,approximate,0,Put ``Closes #<issue>`` on the second or a later line of the commit message when the commit fixes an issue.
+ASTROPY-C061,astropy,PR and release metadata,output,approximate,0,Add a changelog fragment under ``docs/changes/<sub-package>/`` describing your change.
+ASTROPY-C062,astropy,PR and release metadata,output,exact,0,Name the changelog fragment ``<PR number>.<feature|api|bugfix|perf|other>.rst``.
+ASTROPY-C063,astropy,PR and release metadata,output,approximate,0,Do not use single backticks for API reference links in changelog fragments.
+ASTROPY-C067,astropy,Git and commit conventions,output,approximate,0,Put ``[ci skip]`` or ``[skip ci]`` in the commit message when the commits are not ready for CI.
+ASTROPY-C076,astropy,Code and quality,output,approximate,0,Keep all code compatible with the Python versions in ``requires-python`` in ``pyproject.toml``.
+ASTROPY-C077,astropy,Code and quality,output,approximate,0,"Keep the core package importable using only the standard library, NumPy, and astropy itself."
+ASTROPY-C078,astropy,Specialized changes,output,approximate,0,Document any additional third-party dependency a sub-module or function introduces.
+ASTROPY-C080,astropy,Specialized changes,output,approximate,0,Import an optional dependency with a plain ``import`` inside the function or method that uses it.
+ASTROPY-C083,astropy,Language and framework style,output,approximate,0,Put general-purpose utilities in ``astropy.utils`` rather than in a sub-package.
+ASTROPY-C085,astropy,Documentation and docstrings,output,exact,0,"Give every public class, method, and function a docstring."
+ASTROPY-C091,astropy,Specialized changes,output,approximate,0,Put package data files in a ``data`` directory inside the sub-package.
+ASTROPY-C092,astropy,Specialized changes,output,approximate,0,Keep in-repository data files under about 100 kB and host anything larger off the repository.
+ASTROPY-C093,astropy,Specialized changes,output,approximate,0,Access package data through ``get_pkg_data_fileobj`` or ``get_pkg_data_filename``.
+ASTROPY-C094,astropy,Specialized changes,output,approximate,0,Pin a specific version of a data file with the ``astropy.utils.data`` hash mechanism.
+ASTROPY-C095,astropy,Specialized changes,output,approximate,0,Implement persistent configuration through the ``astropy.config`` mechanism.
+ASTROPY-C096,astropy,Specialized changes,output,approximate,0,Declare configuration items at the top of the module or package that uses them.
+ASTROPY-C098,astropy,Language and framework style,output,approximate,0,Use ``print()`` only for output the user explicitly asked for.
+ASTROPY-C099,astropy,Language and framework style,output,approximate,0,Raise a built-in or custom exception class for error conditions.
+ASTROPY-C100,astropy,Language and framework style,output,exact,0,Do not raise the bare ``Exception`` class.
+ASTROPY-C101,astropy,Language and framework style,output,approximate,0,"Emit warnings with ``warnings.warn(message, warning_class)``."
+ASTROPY-C102,astropy,Language and framework style,output,approximate,0,Use ``AstropyUserWarning`` or a subclass of it as the warning class.
+ASTROPY-C103,astropy,Language and framework style,output,approximate,0,Emit informational and debugging messages through ``log.info()`` and ``log.debug()``.
+ASTROPY-C105,astropy,Language and framework style,output,approximate,0,Format Python files with ``ruff format``.
+ASTROPY-C106,astropy,Language and framework style,output,approximate,0,Sort module imports.
+ASTROPY-C107,astropy,Language and framework style,output,exact,0,Make the code pass the repository's configured ruff checks.
+ASTROPY-C108,astropy,Language and framework style,output,exact,0,Start each source file with the comment ``# Licensed under a 3-clause BSD style license - see LICENSE.rst``.
+ASTROPY-C110,astropy,Language and framework style,output,approximate,0,Expose instance state through attributes or properties rather than get_/set_ methods unless access is computationally expensive.
+ASTROPY-C111,astropy,Language and framework style,output,approximate,0,Call super-class methods through ``super()``.
+ASTROPY-C116,astropy,Language and framework style,output,approximate,0,Make ``__repr__`` return ASCII-only text regardless of ``unicode_output``.
+ASTROPY-C117,astropy,Language and framework style,output,approximate,0,Make ``__str__`` and ``__format__`` return ASCII-only text when ``unicode_output`` is False.
+ASTROPY-C118,astropy,Language and framework style,output,approximate,0,Make a round-trippable class's parser accept its own ``__str__`` output.
+ASTROPY-C122,astropy,Specialized changes,output,approximate,0,Commit the ``.pyx`` sources of a Cython extension.
+ASTROPY-C123,astropy,Specialized changes,output,approximate,0,Do not commit the ``.c`` files Cython generates.
+ASTROPY-C124,astropy,Specialized changes,output,approximate,0,"Bundle the source of an external C library a C extension depends on, if its license permits."
+ASTROPY-C125,astropy,Specialized changes,output,exact,0,Let a bundled C library be replaced by the system copy through an ``ASTROPY_USE_SYSTEM_<LIB>`` environment variable.
+ASTROPY-C146,astropy,Documentation and docstrings,output,approximate,0,Put ``i.e.`` and ``e.g.`` inside parentheses and follow them with a comma.
+ASTROPY-C151,astropy,Documentation and docstrings,output,approximate,0,Write an organization's acronym and hyperlink it to a reference.
+ASTROPY-C152,astropy,Documentation and docstrings,output,approximate,0,"Capitalize proper nouns, but write package and code names lowercase in double backticks."
+ASTROPY-C153,astropy,Documentation and docstrings,output,approximate,0,Write ``astropy`` lowercase in double backticks when you mean the core package and Astropy capitalized when you mean the Project.
+ASTROPY-C156,astropy,Documentation and docstrings,output,approximate,0,Do not use contractions in documentation.
+ASTROPY-C160,astropy,Documentation and docstrings,output,approximate,0,Write a number as a numeral when it is followed by a unit or is part of a name.
+ASTROPY-C161,astropy,Documentation and docstrings,output,approximate,0,Spell out whole numbers one through nine and use numerals from 10 up.
+ASTROPY-C164,astropy,Documentation and docstrings,output,approximate,0,Place punctuation belonging to parenthetical material inside the closing parenthesis.
+ASTROPY-C165,astropy,Documentation and docstrings,output,approximate,0,Put periods and commas inside closing quotation marks.
+ASTROPY-C166,astropy,Documentation and docstrings,output,approximate,0,Use an unspaced en dash for number ranges and in place of “to” or “through”.
+ASTROPY-C167,astropy,Documentation and docstrings,output,exact,0,Put a space on either side of an em dash.
+ASTROPY-C168,astropy,Documentation and docstrings,output,approximate,0,Use American spelling.
+ASTROPY-C169,astropy,Documentation and docstrings,output,approximate,0,Express exact times as numerals in the 24-hour system.
+ASTROPY-C170,astropy,Documentation and docstrings,output,approximate,0,Write specific dates in ISO 8601 year-month-day form.
+ASTROPY-C172,astropy,Documentation and docstrings,output,approximate,0,Use the first-person inclusive plural (“we”) in narrative documentation.
+ASTROPY-C173,astropy,Documentation and docstrings,output,approximate,0,Use “you” rather than “one” as the generic pronoun.
+ASTROPY-C174,astropy,Documentation and docstrings,output,approximate,0,"Do not use belittling words such as “obviously”, “easily”, “simply”, “just” or “straightforward”."
+ASTROPY-C177,astropy,Documentation and docstrings,output,approximate,0,Use ``.. warning::`` directives only for limitations in the code.
+ASTROPY-C179,astropy,Documentation and docstrings,output,exact,0,Make a heading's underline (and overline) the same length as the heading text.
+ASTROPY-C185,astropy,Documentation and docstrings,output,approximate,0,Describe new functionality in the narrative documentation under ``docs/``.
+ASTROPY-C190,astropy,Documentation and docstrings,output,approximate,0,Cite the origin source of any algorithm you implement.
+ASTROPY-C195,astropy,Code and quality,output,approximate,0,Do not introduce a dependency that is not declared in ``pyproject.toml``.
+ASTROPY-C201,astropy,Tests and test style,output,approximate,0,Add a test for every exception the new code raises.
+ASTROPY-C205,astropy,Tests and test style,differential,approximate,0,Make ``tox -e test`` run without failures.
+ASTROPY-C206,astropy,Documentation and docstrings,output,approximate,0,"Document what the function does, its inputs, its outputs, its references, its exceptions and an example in its numpydoc docstring."
+ASTROPY-C216,astropy,Git and commit conventions,output,approximate,0,Include ``[ci skip]`` in the commit message for a trivial documentation fix.
+ASTROPY-C219,astropy,Documentation and docstrings,output,approximate,0,Write docstrings in numpydoc format.
+ASTROPY-C220,astropy,Documentation and docstrings,output,approximate,0,"Write docstring cross-references in intersphinx form, including links within astropy."
+ASTROPY-C221,astropy,Documentation and docstrings,output,approximate,0,Use a direct URL when linking to the development version of the documentation.
+ASTROPY-C224,astropy,Specialized changes,output,approximate,0,Document every configuration option added through ``astropy.config``.
+ASTROPY-C225,astropy,Specialized changes,output,approximate,0,Make ``get_extensions`` in ``setup_package.py`` return a list of ``setuptools.Extension`` objects.
+ASTROPY-C226,astropy,Specialized changes,output,approximate,0,Define every C extension through the ``get_extensions`` mechanism.
+ASTROPY-C227,astropy,Specialized changes,output,approximate,0,"Give the ``.pyx`` files, not the generated ``.c`` files, as the source of a Cython extension."
+ASTROPY-C228,astropy,Specialized changes,output,approximate,0,Locate the numpy C headers with ``numpy.get_include()``.
+ASTROPY-C229,astropy,Specialized changes,output,approximate,0,Put a package's installable C header files in an ``include`` directory inside the package.
+ASTROPY-C230,astropy,Specialized changes,output,approximate,0,Declare installable C header files in ``[tool.setuptools.package_data]`` in ``pyproject.toml``.
+ASTROPY-C231,astropy,Specialized changes,output,exact,0,Keep ``setup_package.py`` free of imports from the package it belongs to.
+ASTROPY-C233,astropy,Specialized changes,output,approximate,0,Give a command-line script a ``main`` function that parses arguments and delegates to a library function.
+ASTROPY-C234,astropy,Specialized changes,output,approximate,0,Give ``main`` a single optional argument holding ``sys.argv[1:]``.
+ASTROPY-C235,astropy,Specialized changes,output,approximate,0,Register the script as an entry point in the packaging configuration.
+ASTROPY-C237,astropy,PR and release metadata,output,approximate,0,Write changelog fragments as full sentences with correct case and punctuation.
+ASTROPY-C240,astropy,PR and release metadata,output,exact,0,Put ``other``-type changelog fragments only in the root ``docs/changes/`` directory.
+ASTROPY-C251,astropy,AI-assisted contribution policy,output,approximate,0,Describe your use of generative AI in the change description when it wrote substantive portions of the contribution.
+ASTROPY-C254,astropy,AI-assisted contribution policy,trajectory,exact,1,Do not submit a contribution through an autonomous agent acting without a human contributor.
+DJANGO-C001,django,Language and framework style,output,approximate,0,Format all Python files with black.
+DJANGO-C002,django,Language and framework style,differential,approximate,0,Indent Python files with 4 spaces and HTML files with 2 spaces.
+DJANGO-C003,django,Language and framework style,output,exact,0,Follow PEP 8 style conventions except where Django's .flake8 config excludes specific errors.
+DJANGO-C004,django,Language and framework style,output,exact,0,Keep code lines to at most 88 characters.
+DJANGO-C005,django,Language and framework style,output,exact,0,"Wrap documentation, comments, and docstrings at 79 characters."
+DJANGO-C007,django,Language and framework style,output,approximate,0,"Do not use f-strings for any string that may require translation, including error/logging messages."
+DJANGO-C009,django,Language and framework style,output,exact,0,Avoid using 'we' in code comments.
+DJANGO-C010,django,Language and framework style,output,approximate,0,"Name variables, functions, and methods with snake_case, not camelCase."
+DJANGO-C011,django,Language and framework style,output,approximate,0,Name classes (and class-returning factory functions) in PascalCase.
+DJANGO-C013,django,Language and framework style,output,exact,0,"In tests, prefer assertRaisesMessage() and assertWarnsMessage() over assertRaises() and assertWarns()."
+DJANGO-C014,django,Language and framework style,output,approximate,0,Use assertRaisesRegex() and assertWarnsRegex() only if regex matching is required.
+DJANGO-C015,django,Language and framework style,output,approximate,0,"For boolean checks, use assertIs(x, True/False) instead of assertTrue()/assertFalse()."
+DJANGO-C016,django,Language and framework style,output,approximate,0,Write test docstrings as direct statements of expected behavior; omit 'Tests that'/'Ensures that' preambles.
+DJANGO-C019,django,Language and framework style,output,approximate,0,Sort imports using isort according to Django's import-grouping rules.
+DJANGO-C020,django,Language and framework style,output,exact,0,"Order import groups as future / stdlib / third-party / other Django / local Django / try-except, sorted alphabetically within each group."
+DJANGO-C021,django,Language and framework style,output,exact,0,"Within each import group, put plain 'import x' lines before 'from x import y' lines."
+DJANGO-C022,django,Language and framework style,output,exact,0,Use absolute imports across Django components and single-dot relative imports locally; never use multi-dot relative imports.
+DJANGO-C023,django,Language and framework style,output,exact,0,"Alphabetize items on a single import line, listing uppercase names before lowercase names."
+DJANGO-C024,django,Language and framework style,output,exact,0,"Wrap long import statements using parentheses, 4-space continuation indent, a trailing comma, and a closing parenthesis on its own line."
+DJANGO-C025,django,Language and framework style,output,exact,0,"Leave one blank line between imports and module-level code, and two blank lines before the first function or class."
+DJANGO-C026,django,Language and framework style,output,approximate,0,Prefer documented convenience imports (e.g. from django.views import View) over internal module paths.
+DJANGO-C027,django,Language and framework style,output,exact,0,Place {% extends %} as the first non-comment line in a template.
+DJANGO-C028,django,Language and framework style,output,exact,0,Use exactly one space inside {{ }} variable tags.
+DJANGO-C029,django,Language and framework style,output,exact,0,Alphabetize library names within a {% load %} tag.
+DJANGO-C030,django,Language and framework style,output,exact,0,Use exactly one space inside {% %} tag delimiters.
+DJANGO-C031,django,Language and framework style,output,exact,0,Name the block in {% endblock %} whenever it is on a different line from {% block %}.
+DJANGO-C032,django,Language and framework style,output,approximate,0,"Space tokens inside {{ }}/{% %} singly, but keep '.' (attribute access) and '|' (filter) unspaced."
+DJANGO-C033,django,Language and framework style,output,exact,0,Do not indent top-level {% block %} tags in an extending template.
+DJANGO-C034,django,Language and framework style,output,approximate,0,Name a view function's first parameter 'request'.
+DJANGO-C035,django,Language and framework style,output,exact,0,Name model fields in lowercase snake_case.
+DJANGO-C036,django,Language and framework style,output,exact,0,"Place class Meta after model fields, with one blank line before it."
+DJANGO-C037,django,Language and framework style,output,approximate,0,"Order model class members as: fields, manager attributes, Meta, dunder methods, save(), get_absolute_url(), then custom methods."
+DJANGO-C038,django,Language and framework style,output,approximate,0,"Represent field choices via all-uppercase class attributes mapped to labels, or via a TextChoices/IntegerChoices enum."
+DJANGO-C039,django,Language and framework style,output,approximate,0,Avoid accessing django.conf.settings at module import time; use lazy indirection instead.
+DJANGO-C041,django,Language and framework style,output,exact,0,"Delete unused imports on edit; keep only backwards-compatibility imports, marked with # NOQA."
+DJANGO-C042,django,Language and framework style,output,exact,0,Strip trailing whitespace from all changed lines.
+DJANGO-C043,django,Language and framework style,output,approximate,0,Do not sign contributed code with your name; contributor credit belongs in the AUTHORS file instead.
+DJANGO-C044,django,Git and commit conventions,output,approximate,0,Do not force-push to rewrite published history on django/django branches without team discussion.
+DJANGO-C046,django,Git and commit conventions,output,approximate,0,Phrase commit subject lines in past tense and end them with a period.
+DJANGO-C052,django,PR and release metadata,output,approximate,0,Start the commit message with 'Fixed #xxxxx' when the commit closes ticket xxxxx.
+DJANGO-C053,django,PR and release metadata,output,approximate,0,Include 'Refs #xxxxx' in the commit message when referencing but not closing ticket xxxxx.
+DJANGO-C055,django,PR and release metadata,trajectory,approximate,0,"If a contribution adds a feature or changes existing behavior, it should include documentation."
+DJANGO-C057,django,AI-assisted contribution policy,output,approximate,0,Disclose any AI tools used in preparing a contribution and what each was used for.
+DJANGO-C059,django,AI-assisted contribution policy,trajectory,approximate,0,Verify AI-assisted contributions against the documented contribution checklist before submission.
+DJANGO-C063,django,AI-assisted contribution policy,output,approximate,0,"An AI agent must avoid fabricating nonexistent APIs, features, or citations in a contribution."
+DJANGO-C065,django,AI-assisted contribution policy,trajectory,approximate,0,"An AI agent must self-report any output that may violate contribution requirements, with an explanation."
+DJANGO-C069,django,Code and quality,output,exact,0,"Ensure code passes black, blacken-docs, flake8, isort, and zizmor checks cleanly."
+DJANGO-C071,django,Code and quality,differential,exact,0,Ensure the full test suite passes before submission.
+DJANGO-C074,django,Documentation and docstrings,output,exact,0,Verify documentation builds cleanly with make html (or make.bat html).
+DJANGO-C076,django,Tests and test style,differential,approximate,0,Write a regression test for a bug fix that fails on the pre-fix code and passes after.
+DJANGO-C078,django,Tests and test style,differential,approximate,0,Write tests that exercise all newly added feature code.
+DJANGO-C079,django,PR and release metadata,output,approximate,0,Add a release-note entry in docs/releases/A.B.txt for new features.
+DJANGO-C080,django,Documentation and docstrings,output,approximate,0,Document new features with a versionadded/versionchanged directive at the correct Django version.
+DJANGO-C081,django,Specialized changes,differential,approximate,0,"Raise a RemovedInDjangoXXWarning at the point the deprecated feature is used, in the deprecating release."
+DJANGO-C082,django,Specialized changes,differential,exact,0,Ensure `python -Wa runtests.py` produces no unintended warnings after adding a RemovedInDjangoXXWarning.
+DJANGO-C085,django,Specialized changes,output,approximate,0,Mark unreferenced deprecation-linked code with a RemovedInDjangoXXWarning comment so it's found when the deprecation completes.
+DJANGO-C086,django,Specialized changes,output,approximate,0,"Annotate deprecated documentation entries with .. deprecated:: A.B, a description, and an upgrade path."
+DJANGO-C087,django,Specialized changes,output,approximate,0,Document the deprecation and its upgrade path under the 'Features deprecated in A.B' release-notes heading.
+DJANGO-C088,django,Specialized changes,output,exact,0,Record the deprecation in docs/internals/deprecation.txt under the version it will be removed.
+DJANGO-C091,django,Tests and test style,output,exact,0,Wrap test-local model definitions with @isolate_apps() to avoid polluting the global apps registry.
+DJANGO-C099,django,Code and quality,differential,exact,0,Ensure the test suite passes and docs build warning-free before opening a pull request.
+DJANGO-C103,django,Documentation and docstrings,output,exact,0,"Ensure documentation passes the spelling, code-block-format, and lint checks before a PR can be merged."
+DJANGO-C104,django,Documentation and docstrings,output,approximate,0,Format Python code blocks in documentation with blacken-docs.
+DJANGO-C106,django,Documentation and docstrings,output,approximate,0,Write hypothetical-person references with they/their/them rather than he/she constructions.
+DJANGO-C108,django,Documentation and docstrings,output,approximate,0,Follow Django's term-capitalization conventions (Django/Python capitalized; model/template/view lowercase; URLconf as shown).
+DJANGO-C109,django,Documentation and docstrings,output,approximate,0,"Spell '-ize' words in American English style, not British '-ise'."
+DJANGO-C110,django,Documentation and docstrings,output,approximate,0,Use sentence-case (not title-case) for reST section headings.
+DJANGO-C115,django,Documentation and docstrings,output,exact,0,Follow Django's fixed reST heading-underline hierarchy for section levels.
+DJANGO-C116,django,Documentation and docstrings,output,approximate,0,Reference RFCs/PEPs via the :rfc:/:pep: Sphinx roles with section-level links when available.
+DJANGO-C117,django,Documentation and docstrings,output,approximate,0,"Use the dedicated Sphinx roles for MIME types, env vars, and CVE IDs rather than plain text/code formatting."
+DJANGO-C118,django,Documentation and docstrings,output,exact,0,"Follow the fixed indentation scheme for Sphinx object directives: directive flush-left, description indented 4 spaces, nested directives +4 spaces further."
+DJANGO-C123,django,Documentation and docstrings,output,exact,0,Place versionchanged notes at the end of the relevant section rather than the beginning.
+DJANGO-C125,django,Documentation and docstrings,differential,exact,0,Compress documentation PNG images using optipng and advpng prior to committing.
+DJANGO-C126,django,Language and framework style,output,approximate,0,Follow the .editorconfig-defined indentation for JavaScript files (typically 4 spaces).
+DJANGO-C127,django,Language and framework style,output,approximate,0,Name JavaScript variables in camelCase.
+DJANGO-C129,django,Language and framework style,output,exact,0,Run Biome against JavaScript changes; it is also run via pre-commit.
+DJANGO-C130,django,Language and framework style,output,approximate,0,Prefer event delegation over direct element binding in JavaScript so behavior survives DOM structure changes.
+DJANGO-C143,django,Documentation and docstrings,output,exact,0,Follow the versionadded/versionchanged directive with a mandatory blank line before any description.
+MATPLOTLIB-C001,matplotlib,Documentation and docstrings,output,exact,0,"Do not edit .rst files under doc/plot_types, doc/gallery, doc/tutorials, doc/users/explain or doc/api, except doc/api/api_changes/."
+MATPLOTLIB-C002,matplotlib,Documentation and docstrings,output,approximate,0,Write section titles in sentence case.
+MATPLOTLIB-C003,matplotlib,Documentation and docstrings,output,approximate,0,"Use the listed reST markup characters for each heading level: * for chapters, = for sections, - for subsections, ^ for subsubsections, and "" for paragraphs."
+MATPLOTLIB-C004,matplotlib,Documentation and docstrings,output,exact,0,Reserve the # overline markup for the main title in index.rst and start every other page at chapter level or lower.
+MATPLOTLIB-C006,matplotlib,Documentation and docstrings,output,approximate,0,Refer to function arguments and keywords with the *emphasis* role.
+MATPLOTLIB-C007,matplotlib,Documentation and docstrings,output,approximate,0,Do not use the default role to mark up a function argument.
+MATPLOTLIB-C008,matplotlib,Documentation and docstrings,output,approximate,0,Do not use the literal role to mark up a function argument.
+MATPLOTLIB-C009,matplotlib,Documentation and docstrings,output,approximate,0,Mark up inline mathematics with the :math: role.
+MATPLOTLIB-C010,matplotlib,Documentation and docstrings,output,approximate,0,Mark up displayed mathematics with the .. math:: directive.
+MATPLOTLIB-C011,matplotlib,Documentation and docstrings,output,approximate,0,Use the :doc: role to link to another documentation page.
+MATPLOTLIB-C013,matplotlib,Documentation and docstrings,output,approximate,0,Name reference labels with hyphen-separated descriptive words.
+MATPLOTLIB-C014,matplotlib,Documentation and docstrings,output,approximate,0,Do not encode the documentation hierarchy in a reference label.
+MATPLOTLIB-C015,matplotlib,Documentation and docstrings,output,approximate,0,Place a reference label immediately before a section and link to it with the :ref: role.
+MATPLOTLIB-C016,matplotlib,Documentation and docstrings,output,approximate,0,"Link to Matplotlib methods, classes and modules with back ticks."
+MATPLOTLIB-C018,matplotlib,Documentation and docstrings,output,approximate,0,Qualify an abbreviated reference far enough to disambiguate it when several code elements share the name.
+MATPLOTLIB-C019,matplotlib,Documentation and docstrings,output,exact,0,"Point a .. plot:: directive at the Python script that generates the figure, not at a generated image."
+MATPLOTLIB-C020,matplotlib,Documentation and docstrings,differential,approximate,0,"When moving or consolidating a page, add a redirect-from directive to the new page instead of leaving the old URL dead."
+MATPLOTLIB-C021,matplotlib,Documentation and docstrings,output,exact,0,"Write a redirect-from path as a full path from the doc root, never as a relative link."
+MATPLOTLIB-C023,matplotlib,Documentation and docstrings,output,approximate,0,Write docstrings that conform to the numpydoc docstring guide.
+MATPLOTLIB-C025,matplotlib,Documentation and docstrings,output,approximate,0,"Put new API reference documentation in the module docstring, not in a doc/api page."
+MATPLOTLIB-C026,matplotlib,Documentation and docstrings,output,exact,0,Put the opening and closing quotes of a single-line docstring on the same line as its text.
+MATPLOTLIB-C027,matplotlib,Documentation and docstrings,output,exact,0,Put the opening and closing quotes of a multi-line docstring on their own lines.
+MATPLOTLIB-C029,matplotlib,Documentation and docstrings,output,approximate,0,Give string values with plain quotes and no surrounding literal role.
+MATPLOTLIB-C030,matplotlib,Documentation and docstrings,output,exact,0,Do not use formal type-annotation syntax in a docstring type description.
+MATPLOTLIB-C031,matplotlib,Documentation and docstrings,output,approximate,0,Describe a parameter that accepts any number as ``float``.
+MATPLOTLIB-C032,matplotlib,Documentation and docstrings,output,approximate,0,"Describe a 2D position as ``(float, float)``, parentheses included."
+MATPLOTLIB-C033,matplotlib,Documentation and docstrings,output,approximate,0,Describe a homogeneous numeric sequence parameter as ``array-like``.
+MATPLOTLIB-C034,matplotlib,Documentation and docstrings,output,approximate,0,"Describe a return value that really is a numpy array as ``array``, not ``array-like``."
+MATPLOTLIB-C035,matplotlib,Documentation and docstrings,output,approximate,0,Spell out a non-float dtype as ``array-like of <dtype>``.
+MATPLOTLIB-C036,matplotlib,Documentation and docstrings,output,approximate,0,Describe a non-numeric homogeneous sequence as ``list of <type>``.
+MATPLOTLIB-C037,matplotlib,Documentation and docstrings,output,approximate,0,Write parameter types as full references with a leading tilde.
+MATPLOTLIB-C038,matplotlib,Documentation and docstrings,output,approximate,0,Write in-text references to code in the abbreviated dotted form.
+MATPLOTLIB-C039,matplotlib,Documentation and docstrings,output,approximate,0,"Document a simple default with ``{name} : {type}, default: {val}``."
+MATPLOTLIB-C041,matplotlib,Documentation and docstrings,output,approximate,0,Do not document None as a default when it is only a not-specified sentinel.
+MATPLOTLIB-C042,matplotlib,Documentation and docstrings,output,approximate,0,Wrap a long parameter list with a backslash continuation and no indent on the continuation line.
+MATPLOTLIB-C043,matplotlib,Documentation and docstrings,output,approximate,0,Reference an rcParam with the :rc: role.
+MATPLOTLIB-C044,matplotlib,Language and framework style,output,approximate,0,Name an Artist property accessor pair ``set_PROPERTYNAME`` and ``get_PROPERTYNAME``.
+MATPLOTLIB-C045,matplotlib,Documentation and docstrings,output,approximate,0,"Document a property setter's accepted values in its Parameters block, or in an ``.. ACCEPTS:`` block where that is not possible."
+MATPLOTLIB-C047,matplotlib,Documentation and docstrings,output,approximate,0,Mark a deliberately inherited docstring with the comment ``# docstring inherited``.
+MATPLOTLIB-C049,matplotlib,Documentation and docstrings,output,approximate,0,"Put ""sgskip"" in the filename of an example that should not have a plot generated."
+MATPLOTLIB-C050,matplotlib,Documentation and docstrings,output,approximate,0,Separate blocks of narrative text in an example or tutorial with the ``# %%`` separator.
+MATPLOTLIB-C051,matplotlib,Documentation and docstrings,output,approximate,0,Cite the source of any public dataset used as sample data.
+MATPLOTLIB-C052,matplotlib,Documentation and docstrings,output,approximate,0,"Write sample data out in the example code, falling back to cbook.get_sample_data only where that is not feasible."
+MATPLOTLIB-C053,matplotlib,Documentation and docstrings,output,exact,0,Put sample data too large to inline into lib/matplotlib/mpl-data/sample_data/.
+MATPLOTLIB-C054,matplotlib,Documentation and docstrings,output,approximate,0,List the showcased functions in a References admonition at the bottom of the example.
+MATPLOTLIB-C056,matplotlib,Documentation and docstrings,output,approximate,0,"List both the Axes/Figure and the pyplot reference for a dual-API function, pyplot second."
+MATPLOTLIB-C057,matplotlib,Documentation and docstrings,output,approximate,0,List every example in a gallery_order.txt that has no '*' placeholder.
+MATPLOTLIB-C058,matplotlib,Documentation and docstrings,output,approximate,0,Add any raw .rst file in a mixed gallery subdirectory to a toctree.
+MATPLOTLIB-C062,matplotlib,Documentation and docstrings,output,exact,0,"Do not use the word ""demo"" in a gallery example title."
+MATPLOTLIB-C064,matplotlib,Documentation and docstrings,output,approximate,0,Use the simple present tense in a gallery example title that needs a verb.
+MATPLOTLIB-C070,matplotlib,Documentation and docstrings,output,approximate,0,Keep a customised example figure within the 720px (or 896px) rendered width limit.
+MATPLOTLIB-C072,matplotlib,Documentation and docstrings,output,approximate,0,Title a plot types entry with the method signature and its required arguments.
+MATPLOTLIB-C073,matplotlib,Documentation and docstrings,output,approximate,0,Describe a plot types entry in one sentence and link to the method's API documentation.
+MATPLOTLIB-C075,matplotlib,Documentation and docstrings,output,exact,0,Style a plot types entry with the ``_mpl-gallery`` stylesheet.
+MATPLOTLIB-C076,matplotlib,Git and commit conventions,output,exact,0,Do not commit changes to your local main branch.
+MATPLOTLIB-C082,matplotlib,Git and commit conventions,differential,exact,0,Add every new file you create to version control.
+MATPLOTLIB-C083,matplotlib,Tests and test style,trajectory,approximate,0,Run the issue's reproducer against your branch and confirm it now gives the desired result.
+MATPLOTLIB-C096,matplotlib,Git and commit conventions,output,exact,0,Put a [skip appveyor] marker on the first line of the commit message.
+MATPLOTLIB-C097,matplotlib,Git and commit conventions,output,approximate,0,Use [skip ci] only for changes to which documentation checks and unit tests do not apply.
+MATPLOTLIB-C103,matplotlib,AI-assisted contribution policy,trajectory,exact,1,Do not let external AI tooling interact with the project directly by opening issues or pull requests or commenting.
+MATPLOTLIB-C117,matplotlib,Language and framework style,output,approximate,0,"Capitalise Figure when it means the Matplotlib object or class, and lowercase it in general language."
+MATPLOTLIB-C118,matplotlib,Language and framework style,output,approximate,0,"Capitalise Axes when it means the Matplotlib object or class, and lowercase it in general language."
+MATPLOTLIB-C119,matplotlib,Language and framework style,output,approximate,0,"Capitalise Artist when it means the Matplotlib object or class, and lowercase it in general language."
+MATPLOTLIB-C120,matplotlib,Language and framework style,output,approximate,0,"Capitalise Axis when it means the Matplotlib object or class, and lowercase it in general language."
+MATPLOTLIB-C121,matplotlib,Language and framework style,output,approximate,0,"Call the Axes usage pattern the ""Axes interface"", not the explicit, object-oriented, OO-style or OOP interface."
+MATPLOTLIB-C122,matplotlib,Language and framework style,output,approximate,0,"Call the pyplot usage pattern the ""pyplot interface"", not the implicit or MATLAB-like interface, and do not capitalise Pyplot."
+MATPLOTLIB-C126,matplotlib,Documentation and docstrings,output,approximate,0,"Write a verb-phrase heading in the second-person imperative, not the gerund."
+MATPLOTLIB-C127,matplotlib,Documentation and docstrings,output,approximate,0,Write directed instructions as second-person imperative sentences.
+MATPLOTLIB-C129,matplotlib,Documentation and docstrings,output,approximate,0,Write explanations in the present simple tense.
+MATPLOTLIB-C131,matplotlib,Documentation and docstrings,output,approximate,0,Write in the active voice.
+MATPLOTLIB-C136,matplotlib,Documentation and docstrings,output,approximate,0,"Put a comment before or on the same line as the code it describes, never after it."
+MATPLOTLIB-C137,matplotlib,Documentation and docstrings,output,approximate,0,End an example that produces a visual with a show() call.
+MATPLOTLIB-C138,matplotlib,Documentation and docstrings,output,approximate,0,Do not leave Python output lines in documentation examples.
+MATPLOTLIB-C140,matplotlib,Documentation and docstrings,output,approximate,0,Use a numbered list only for actions performed in a determined order.
+MATPLOTLIB-C141,matplotlib,Documentation and docstrings,output,approximate,0,Write tables as reStructuredText ASCII tables.
+MATPLOTLIB-C142,matplotlib,Documentation and docstrings,output,approximate,0,Do not use Markdown tables or the csv-table directive.
+MATPLOTLIB-C145,matplotlib,Documentation and docstrings,output,approximate,0,Give every public method an informative docstring.
+MATPLOTLIB-C152,matplotlib,Code and quality,differential,exact,0,Get the prek pre-commit checks passing before opening the pull request.
+MATPLOTLIB-C158,matplotlib,Documentation and docstrings,output,approximate,0,Add a new rst file to the API docs when you add a new module.
+MATPLOTLIB-C159,matplotlib,Documentation and docstrings,output,approximate,0,Put a small example in the Examples section of a high-level plotting function's docstring.
+MATPLOTLIB-C166,matplotlib,Tests and test style,trajectory,approximate,0,Run the test suite with a bare pytest from the repository root.
+MATPLOTLIB-C167,matplotlib,Tests and test style,output,approximate,0,Put a test in the file under lib/matplotlib/tests that mirrors the module it tests.
+MATPLOTLIB-C168,matplotlib,Tests and test style,output,approximate,0,Name a test module with a ``test_`` prefix.
+MATPLOTLIB-C169,matplotlib,Tests and test style,output,approximate,0,Name a test function with a ``test_`` prefix.
+MATPLOTLIB-C170,matplotlib,Tests and test style,output,approximate,0,Name a test class with a ``Test`` prefix.
+MATPLOTLIB-C176,matplotlib,Tests and test style,output,approximate,0,Fix the random seed in any test that uses random numbers.
+MATPLOTLIB-C177,matplotlib,Tests and test style,output,exact,0,Seed numpy's default random generator with 19680801.
+MATPLOTLIB-C178,matplotlib,Tests and test style,output,approximate,0,Create test figures and Axes through the standard pyplot constructors.
+MATPLOTLIB-C181,matplotlib,Tests and test style,output,exact,0,Name the expected baseline images in the image_comparison decorator.
+MATPLOTLIB-C182,matplotlib,Tests and test style,differential,approximate,0,Commit the new baseline image into the matching baseline_images subdirectory.
+MATPLOTLIB-C183,matplotlib,Tests and test style,output,exact,0,Omit the file extension from the baseline image name when comparing several formats.
+MATPLOTLIB-C184,matplotlib,Tests and test style,output,exact,0,Set ``style='mpl20'`` on a new image-comparison test.
+MATPLOTLIB-C187,matplotlib,Tests and test style,output,approximate,0,"Give a check_figures_equal test exactly two Figure parameters, one drawn by the tested method and one by the baseline method."
+MATPLOTLIB-C188,matplotlib,Tests and test style,output,approximate,0,Set an image-comparison tolerance with the ``tol`` argument rather than by any other means.
+MATPLOTLIB-C189,matplotlib,Language and framework style,output,approximate,0,Prefix helper functions and internal attributes with an underscore.
+MATPLOTLIB-C192,matplotlib,Specialized changes,output,approximate,0,Register a new rcParam with a validator and a _Param entry in rcsetup.py.
+MATPLOTLIB-C193,matplotlib,Specialized changes,output,approximate,0,Add a commented-out entry for a new rcParam to matplotlibrc.
+MATPLOTLIB-C194,matplotlib,Specialized changes,output,approximate,0,Add a new rcParam key to the RcKeyType Literal in typing.py.
+MATPLOTLIB-C195,matplotlib,Specialized changes,trajectory,approximate,0,Run test_pyplot_up_to_date after changing the signature of a pyplot-wrapped method.
+MATPLOTLIB-C196,matplotlib,Specialized changes,differential,approximate,0,Regenerate the pyplot wrappers with tools/boilerplate.py and commit them.
+MATPLOTLIB-C197,matplotlib,Specialized changes,differential,approximate,0,"Do not modify an existing colormap, color sequence or style."
+MATPLOTLIB-C198,matplotlib,Specialized changes,output,approximate,0,"Give any new colormap, color sequence or style a BSD compatible license."
+MATPLOTLIB-C202,matplotlib,Specialized changes,differential,approximate,0,Keep the deprecated API fully functional throughout the deprecation period.
+MATPLOTLIB-C203,matplotlib,Specialized changes,differential,approximate,0,Ship the replacement for a deprecated API before the deprecation period ends.
+MATPLOTLIB-C205,matplotlib,PR and release metadata,output,approximate,0,Write a deprecation notice when introducing a deprecation.
+MATPLOTLIB-C206,matplotlib,Specialized changes,differential,approximate,0,Raise a MatplotlibDeprecationWarning when deprecated API is used.
+MATPLOTLIB-C207,matplotlib,Specialized changes,output,approximate,0,Use the matching _api deprecation helper for the kind of API being deprecated.
+MATPLOTLIB-C208,matplotlib,Specialized changes,output,exact,0,Set the deprecation helper's *since* parameter to the next point release.
+MATPLOTLIB-C209,matplotlib,Specialized changes,differential,approximate,0,Update the .pyi stub so it matches the runtime behaviour after a deprecation.
+MATPLOTLIB-C210,matplotlib,Specialized changes,output,approximate,0,Update the stub signature for rename_parameter and make_keyword_only deprecations at introduction.
+MATPLOTLIB-C211,matplotlib,Specialized changes,output,approximate,0,Give a delete_parameter-deprecated parameter a default value hint in the stub.
+MATPLOTLIB-C212,matplotlib,PR and release metadata,output,approximate,0,Write a deprecation announcement when a deprecation expires.
+MATPLOTLIB-C213,matplotlib,Specialized changes,differential,approximate,0,Remove the deprecation warnings along with the API when a deprecation expires.
+MATPLOTLIB-C214,matplotlib,Specialized changes,output,approximate,0,Remove deprecated and privatised items from the stub on expiry.
+MATPLOTLIB-C216,matplotlib,Specialized changes,output,approximate,0,Mark a pending deprecation with pending=True and no removal version.
+MATPLOTLIB-C217,matplotlib,Specialized changes,output,approximate,0,"Set pending=False, since to the next meso release and removal at least two meso releases later when converting a pending deprecation."
+MATPLOTLIB-C218,matplotlib,PR and release metadata,output,approximate,0,"Put ""pending deprecation"" in the title of a pending deprecation notice."
+MATPLOTLIB-C219,matplotlib,Documentation and docstrings,output,approximate,0,Add a versioning directive for a backward-incompatible API change.
+MATPLOTLIB-C220,matplotlib,PR and release metadata,output,approximate,0,File the release-note entry in the folder that matches the kind of change.
+MATPLOTLIB-C221,matplotlib,Documentation and docstrings,output,approximate,0,Put a versioning directive at the end of its description block.
+MATPLOTLIB-C222,matplotlib,Documentation and docstrings,output,approximate,0,Place a class or function versioning directive before the Parameters section.
+MATPLOTLIB-C223,matplotlib,Documentation and docstrings,output,approximate,0,Place a parameter's versioning directive at the end of that parameter's description.
+MATPLOTLIB-C224,matplotlib,Documentation and docstrings,output,exact,0,Omit the micro version from a versioning directive and never apply one to a whole module.
+MATPLOTLIB-C225,matplotlib,PR and release metadata,output,exact,0,Keep cross-references out of release-note section titles and put them in the descriptive text.
+MATPLOTLIB-C226,matplotlib,PR and release metadata,output,exact,0,Put an API change note in the next_api_changes subdirectory matching its kind.
+MATPLOTLIB-C228,matplotlib,PR and release metadata,output,approximate,0,Denote code objects in a release-note title with double backticks.
+MATPLOTLIB-C229,matplotlib,PR and release metadata,output,approximate,0,Describe every new feature in a What's new entry.
+MATPLOTLIB-C230,matplotlib,PR and release metadata,output,approximate,0,Write each What's new entry into its own file under doc/release/next_whats_new/.
+MATPLOTLIB-C233,matplotlib,Documentation and docstrings,output,approximate,0,Mark discouraged API with a Discouraged admonition in its docstring.
+MATPLOTLIB-C234,matplotlib,Documentation and docstrings,output,approximate,0,Prefix a discouraged function's summary line with [*Discouraged*].
+MATPLOTLIB-C235,matplotlib,Language and framework style,output,exact,0,Format Python code to PEP8 as enforced by ruff.
+MATPLOTLIB-C236,matplotlib,Language and framework style,output,exact,0,Keep lines to at most 88 characters.
+MATPLOTLIB-C238,matplotlib,Language and framework style,output,exact,0,"Use the listed standard aliases when importing numpy, matplotlib and its submodules."
+MATPLOTLIB-C239,matplotlib,Language and framework style,output,approximate,0,Access rcParams as mpl.rcParams rather than importing it directly.
+MATPLOTLIB-C242,matplotlib,Code and quality,output,approximate,0,Update the mypy type hints when you add or change public API.
+MATPLOTLIB-C244,matplotlib,Specialized changes,output,approximate,0,List new files and directories in the meson.build of their directory.
+MATPLOTLIB-C245,matplotlib,Language and framework style,output,approximate,0,Write C and C++ code to PEP7 style.
+MATPLOTLIB-C246,matplotlib,Language and framework style,output,approximate,0,Keep Python/C interface code separate from core C/C++ code.
+MATPLOTLIB-C247,matplotlib,Language and framework style,output,approximate,0,Name Python/C interface files FOO_wrap.cpp or FOO_wrapper.cpp.
+MATPLOTLIB-C248,matplotlib,Documentation and docstrings,output,approximate,0,Write C/C++ header documentation in Numpydoc format.
+MATPLOTLIB-C249,matplotlib,Specialized changes,differential,approximate,0,Modify vendored code under extern/ only where the change cannot be made elsewhere.
+MATPLOTLIB-C250,matplotlib,Specialized changes,output,approximate,0,Do not make style fixes to vendored code under extern/.
+MATPLOTLIB-C251,matplotlib,Specialized changes,output,approximate,0,Suppress a clang-tidy false positive with a narrowly scoped NOLINT comment that gives the reason.
+MATPLOTLIB-C253,matplotlib,Language and framework style,output,approximate,0,Declare keyword arguments explicitly when the function consumes all of them.
+MATPLOTLIB-C254,matplotlib,Language and framework style,output,approximate,0,Declare locally consumed arguments as keyword-only instead of popping them off **kwargs.
+MATPLOTLIB-C255,matplotlib,Code and quality,output,approximate,0,Use logging rather than print for debug output.
+MATPLOTLIB-C256,matplotlib,Code and quality,output,approximate,0,Create the module logger as ``_log = logging.getLogger(__name__)`` right after the imports.
+MATPLOTLIB-C257,matplotlib,Code and quality,output,exact,0,Pass logging arguments as %-style parameters rather than pre-formatted strings.
+MATPLOTLIB-C258,matplotlib,Code and quality,output,approximate,0,Log expected code paths at debug level only.
+MATPLOTLIB-C261,matplotlib,Language and framework style,output,approximate,0,Raise user-facing warnings through _api.warn_external rather than warnings.warn directly.
+MATPLOTLIB-C262,matplotlib,Specialized changes,output,approximate,0,"Check that any code brought in from another project carries a PSF, BSD, MIT or compatible license."
+MATPLOTLIB-C263,matplotlib,Specialized changes,output,approximate,0,Do not add GPL or LGPL code to the main code base.
+MATPLOTLIB-C264,matplotlib,Specialized changes,output,approximate,0,Add a copy of a vendored dependency's license to the license directory where its license requires distribution.
+MATPLOTLIB-C265,matplotlib,Specialized changes,output,approximate,0,State the license clearly when using non-BSD-compatible code in a toolkit.
+MATPLOTLIB-C268,matplotlib,AI-assisted contribution policy,trajectory,approximate,0,Disclose in the PR description whether and how AI was used.
+MATPLOTLIB-C271,matplotlib,Tests and test style,differential,approximate,0,Test new and changed code.
+MATPLOTLIB-C272,matplotlib,Documentation and docstrings,output,approximate,0,Demonstrate a plotting-related feature in a gallery example.
+MATPLOTLIB-C276,matplotlib,Documentation and docstrings,output,approximate,0,Put the tags directive at the bottom of the page with the tags underneath it.
+MATPLOTLIB-C277,matplotlib,Documentation and docstrings,output,exact,0,Give every gallery example at least one content tag.
+MATPLOTLIB-C280,matplotlib,Documentation and docstrings,output,exact,0,Write a tag as ``subcategory: tag``.
+MATPLOTLIB-C281,matplotlib,Documentation and docstrings,output,exact,0,Keep a tag to one or two words.
+MATPLOTLIB-C283,matplotlib,Documentation and docstrings,output,approximate,0,Do not create a tag that would apply to only one gallery entry.
+MATPLOTLIB-C284,matplotlib,Specialized changes,output,approximate,0,Set requires-python in pyproject.toml to the minimum supported Python version.
+MATPLOTLIB-C286,matplotlib,Specialized changes,output,approximate,0,Update all six named files together when raising the minimum Python version.
+MATPLOTLIB-C287,matplotlib,Specialized changes,output,approximate,0,Update all six named files together when raising the minimum NumPy version.
+MATPLOTLIB-C289,matplotlib,PR and release metadata,output,approximate,0,Add an api_changes/development note using the given template for a minimum-version bump.
+MATPLOTLIB-C291,matplotlib,Code and quality,differential,approximate,0,Re-stage and re-commit any file a pre-commit hook modified.
+MWASKOM-C001,seaborn,Tests and test style,trajectory,exact,0,Run `make test` from the source directory to exercise the unit test suite.
+MWASKOM-C002,seaborn,Code and quality,output,exact,0,Make the changed Python files satisfy the ruff configuration declared in `pyproject.toml`.
+PALLETS-C004,flask,AI-assisted contribution policy,trajectory,exact,1,Do not generate a pull request with LLM or AI tools.
+PALLETS-C009,flask,Git and commit conventions,output,exact,0,Keep the first line of the commit message to 50 characters or fewer.
+PALLETS-C010,flask,Git and commit conventions,output,exact,0,Separate any commit message body from the subject with a blank line and wrap it at 72 characters.
+PALLETS-C011,flask,Git and commit conventions,output,approximate,0,Do not put issue numbers in the commit message.
+PALLETS-C012,flask,Git and commit conventions,output,approximate,0,Give each collaborator a co-authored-by line at the bottom of the commit message.
+PALLETS-C015,flask,Code and quality,output,exact,0,Run mypy over the change to check static typing.
+PALLETS-C018,flask,PR and release metadata,differential,approximate,0,Do not add a changelog entry for a change that only touches documentation or tool configuration.
+PALLETS-C019,flask,Code and quality,output,exact,0,Make the change satisfy the project's pre-commit lint and format checks.
+PALLETS-C021,flask,PR and release metadata,differential,approximate,0,"Do not include unrelated refactors, type annotation changes or test reorganizations in a bug fix."
+PALLETS-C031,flask,Git and commit conventions,trajectory,exact,1,Do not commit directly to main or stable; route every change through a pull request.
+PALLETS-C032,flask,Documentation and docstrings,output,approximate,0,Write docstrings in reStructuredText.
+PALLETS-C037,flask,Documentation and docstrings,differential,approximate,0,"Fix a typo everywhere it occurs, not only where it was noticed."
+PALLETS-C038,flask,Documentation and docstrings,differential,approximate,0,Do not fix typos in code comments that never appear in the built docs unless you are already editing that code.
+PALLETS-C041,flask,Documentation and docstrings,output,approximate,0,Do not use 'you' or 'we' in documentation outside tutorials.
+PALLETS-C044,flask,Documentation and docstrings,output,approximate,0,Write documentation in English.
+PALLETS-C046,flask,Documentation and docstrings,output,approximate,0,Use the serial comma in documentation prose.
+PALLETS-C047,flask,Documentation and docstrings,differential,approximate,0,Do not submit a change whose purpose is to make spelling or style uniform across existing docs.
+PALLETS-C050,flask,Documentation and docstrings,output,approximate,0,Do not reference GitHub issue or PR numbers or links anywhere in the codebase.
+PALLETS-C053,flask,PR and release metadata,output,approximate,0,Append a new changelog entry to the end of its section.
+PALLETS-C061,flask,AI-assisted contribution policy,trajectory,exact,1,Do not submit a contribution that appears to be LLM- or AI-generated.
+PALLETS-C062,flask,AI-assisted contribution policy,trajectory,exact,1,Do not use LLM tools to translate or improve the text you write.
+PALLETS-C066,flask,Tests and test style,differential,approximate,0,Add tests that demonstrate the change works.
+PALLETS-C067,flask,Tests and test style,output,exact,0,Ensure the whole test suite passes before submitting.
+PALLETS-C069,flask,Tests and test style,output,exact,0,Put tests in the tests directory.
+PALLETS-C070,flask,Tests and test style,output,approximate,0,Name test files using the test_{topic}.py pattern.
+PALLETS-C071,flask,Tests and test style,output,approximate,0,Name each test function test_{specific}.
+PALLETS-C072,flask,Tests and test style,output,exact,0,Give each test function a unique name.
+PALLETS-C074,flask,Tests and test style,differential,approximate,0,Extend an existing related test file for a bug fix rather than creating a new one.
+PALLETS-C076,flask,Tests and test style,output,approximate,0,Use plain assert statements in tests.
+PALLETS-C077,flask,Tests and test style,output,approximate,0,Use @pytest.mark.parametrize when a test covers multiple cases.
+PALLETS-C084,flask,Tests and test style,differential,exact,0,Ensure the added tests fail when the change is reverted.
+PALLETS-C085,flask,Documentation and docstrings,differential,approximate,0,"Add or update the documentation affected by the change, in docs and in code."
+PALLETS-C086,flask,PR and release metadata,differential,approximate,0,Add a CHANGES.rst entry summarizing the change.
+PALLETS-C088,flask,Documentation and docstrings,output,approximate,0,Add a versionchanged directive to the docs for changed behaviour.
+PSF-C003,requests,Tests and test style,trajectory,approximate,0,Run the test suite before making any change and confirm it passes on your system.
+PSF-C004,requests,Tests and test style,differential,approximate,0,Add tests that exercise the bug or feature the change addresses.
+PSF-C005,requests,Tests and test style,trajectory,approximate,0,Confirm the newly added tests fail against the unmodified code before applying the change.
+PSF-C006,requests,Tests and test style,trajectory,approximate,0,"Run the entire test suite after making the change and confirm every test passes, including the new ones."
+PSF-C011,requests,Code and quality,output,approximate,0,Make the changed files satisfy every formatting requirement configured in .pre-commit-config.yaml.
+PSF-C013,requests,Documentation and docstrings,output,approximate,0,Place documentation changes under the docs/ directory.
+PSF-C014,requests,Documentation and docstrings,output,approximate,0,Write documentation files in reStructuredText.
+PSF-C018,requests,Language and framework style,output,approximate,0,Use single-quoted strings in Python code samples inside the documentation.
+PSF-C024,requests,Git and commit conventions,output,approximate,0,"Write a commit message that explains why the change was made, not only which issue it closes."
+PSF-C025,requests,AI-assisted contribution policy,trajectory,exact,1,Ensure every contribution is authored by a human who owns the copyright to all of its changes.
+PSF-C026,requests,AI-assisted contribution policy,output,approximate,0,Do not list an LLM tool as a Co-authored-by trailer on a commit.
+PSF-C028,requests,AI-assisted contribution policy,trajectory,exact,1,Do not use an unsupervised agentic coding tool to produce the contribution.
+PSF-C029,requests,AI-assisted contribution policy,trajectory,exact,1,Certify that you authored the contribution or hold the legal right to submit it.
+PYDATA-C018,xarray,Git and commit conventions,output,exact,0,Commit every modified file into the local repository.
+PYDATA-C024,xarray,Documentation and docstrings,output,approximate,0,Write docstrings in the NumPy docstring format.
+PYDATA-C026,xarray,Documentation and docstrings,output,approximate,0,Write documentation pages containing executable code as MyST Markdown files using the {code-cell} directive.
+PYDATA-C027,xarray,Documentation and docstrings,differential,approximate,0,List every public method in a toctree in doc/api.rst.
+PYDATA-C030,xarray,Documentation and docstrings,output,approximate,0,"Mark up ReST section levels with `*` and an overline for chapters, `=` for headings, `-` for sections and `~` for subsections."
+PYDATA-C031,xarray,Documentation and docstrings,output,approximate,0,Use `**text**` for bold text in ReST.
+PYDATA-C033,xarray,Documentation and docstrings,output,approximate,0,Include image files in documentation pages with the `image::` directive.
+PYDATA-C037,xarray,Code and quality,output,approximate,0,Format code with ruff so that `ruff format` reports no changes.
+PYDATA-C038,xarray,Code and quality,output,exact,0,Keep the code free of ruff lint violations.
+PYDATA-C039,xarray,Language and framework style,output,approximate,0,Order imports the way ruff's isort rules require.
+PYDATA-C040,xarray,Code and quality,output,exact,0,Make type hints pass mypy's static type check.
+PYDATA-C042,xarray,Specialized changes,differential,approximate,0,"When an argument is no longer valid, keep accepting it and emit a FutureWarning with emit_user_level_warning instead of raising."
+PYDATA-C048,xarray,Tests and test style,output,approximate,0,"Write tests with pytest, using the numpy.testing extensions where they apply."
+PYDATA-C049,xarray,Tests and test style,output,exact,0,Put new tests in the tests subdirectory of the package they cover.
+PYDATA-C051,xarray,Tests and test style,output,approximate,0,Compare xarray objects with assert_equal or assert_identical from xarray.testing.
+PYDATA-C052,xarray,Tests and test style,output,exact,0,Write new tests as functions rather than as test classes.
+PYDATA-C053,xarray,Tests and test style,output,approximate,0,Name test functions test_* and give them only fixture or parameter arguments.
+PYDATA-C055,xarray,Tests and test style,output,exact,0,"Mark an individual parameter with pytest.param(..., marks=...)."
+PYDATA-C058,xarray,Tests and test style,output,approximate,0,Assert on scalars and truth values with a bare assert statement.
+PYDATA-C060,xarray,Tests and test style,output,exact,0,Name a test module test_<feature>.py.
+PYDATA-C069,xarray,PR and release metadata,differential,exact,0,Add an entry describing your change to doc/whats-new.rst.
+PYDATA-C070,xarray,PR and release metadata,output,exact,0,Include the GitHub issue number in the whats-new.rst entry using the :issue: role.
+PYDATA-C073,xarray,Git and commit conventions,output,exact,0,Add every new file to git so it is part of the commit.
+PYDATA-C076,xarray,Git and commit conventions,output,approximate,0,Reference the relevant GitHub issue in the commit message as GH1234 or #1234.
+PYDATA-C088,xarray,Git and commit conventions,output,approximate,0,Add a [test-upstream] tag to the first line of the commit message to run the upstream dev CI.
+PYDATA-C089,xarray,Git and commit conventions,output,exact,0,Add a [skip-ci] tag to the first line of a documentation-only commit message to skip CI.
+PYDATA-C091,xarray,Code and quality,trajectory,exact,0,Run pre-commit over all files and commit any changes it makes.
+PYDATA-C103,xarray,AI-assisted contribution policy,trajectory,exact,1,Personally review and understand every line of the change before submitting it.
+PYDATA-C110,xarray,AI-assisted contribution policy,trajectory,exact,1,Never submit documentation you have not read and verified yourself.
+PYDATA-C112,xarray,Tests and test style,differential,approximate,0,Add tests for the change.
+PYDATA-C117,xarray,AI-assisted contribution policy,trajectory,approximate,0,Disclose that the pull request contains AI-generated content.
+PYDATA-C132,xarray,Tests and test style,output,approximate,0,Gate a test on an optional dependency with a `@requires_*` decorator rather than a conditional `if`.
+PYDATA-C133,xarray,Tests and test style,output,exact,0,Import dask array helpers from `xarray.tests` in tests instead of importing `dask.array` directly.
+PYDATA-C134,xarray,Tests and test style,output,exact,0,Do not attach `pytest.mark.skipif` to a `pytest.param` inside `parametrize`.
+PYDATA-C135,xarray,Tests and test style,output,exact,0,Import an optional dependency inside a test function with `pytest.importorskip`.
+PYLINT-DEV-C003,pylint,Tests and test style,trajectory,exact,0,Run pylint's own test suite against your change.
+PYLINT-DEV-C006,pylint,PR and release metadata,output,approximate,0,Create a towncrier news fragment named after the issue number for the change.
+PYLINT-DEV-C007,pylint,PR and release metadata,output,exact,0,Give the news fragment one of the fragment types declared in towncrier.toml.
+PYLINT-DEV-C016,pylint,Language and framework style,output,approximate,0,Give a new checker a message id that no existing checker already uses.
+PYLINT-DEV-C025,pylint,Tests and test style,output,exact,0,Include tests with every contribution.
+PYLINT-DEV-C032,pylint,Tests and test style,trajectory,exact,0,Select a test suite with a -k pattern that omits the .py extension.
+PYLINT-DEV-C034,pylint,Tests and test style,trajectory,exact,0,Run the stdlib primer locally with pytest -m primer_stdlib --primer-stdlib.
+PYLINT-DEV-C037,pylint,Tests and test style,output,approximate,0,Put new unit tests in pylint's unit test directory.
+PYLINT-DEV-C039,pylint,Tests and test style,output,approximate,0,Put data files a unit test needs in the regrtest_data directory.
+PYLINT-DEV-C040,pylint,Tests and test style,output,exact,0,Give every functional test .py file a .txt companion with the same stem.
+PYLINT-DEV-C041,pylint,Tests and test style,differential,approximate,0,Record in the .txt file exactly the pylint messages the test file should emit.
+PYLINT-DEV-C042,pylint,Tests and test style,output,exact,0,Annotate each line expected to emit a message with a # [message_symbol] comment.
+PYLINT-DEV-C043,pylint,Tests and test style,output,exact,0,List several expected messages on one line as a comma-separated set inside a single bracket comment.
+PYLINT-DEV-C045,pylint,Tests and test style,output,approximate,0,Put per-test pylint configuration in a same-named .rc file beside the test.
+PYLINT-DEV-C046,pylint,Tests and test style,output,exact,0,Pass functional runner options only through a [testoptions] section using the supported keys.
+PYLINT-DEV-C047,pylint,Tests and test style,output,approximate,0,"Set max_pyver to the first unsupported version, one above the last version the test should run on."
+PYLINT-DEV-C048,pylint,Tests and test style,output,exact,0,Mark version-conditional expected messages using only the four supported comparison operators.
+PYLINT-DEV-C049,pylint,Tests and test style,output,approximate,0,Provide both a version-suffixed .txt and a default .txt when expected output differs by Python version.
+PYLINT-DEV-C050,pylint,Tests and test style,output,approximate,0,Use min_pyver or max_pyver rather than conditional annotations when the test code is not parsable on every version.
+PYLINT-DEV-C051,pylint,Tests and test style,output,approximate,0,Append a new test case for an existing checker to that checker's existing test file.
+PYLINT-DEV-C052,pylint,Tests and test style,output,approximate,0,"Name a new checker's functional test file after the message symbol, with underscores."
+PYLINT-DEV-C053,pylint,Tests and test style,output,exact,0,Place a functional test file in the sub-directory named for its first letter.
+PYLINT-DEV-C054,pylint,Specialized changes,output,approximate,0,Put the functional test for an extension checker under the extension's own directory.
+PYLINT-DEV-C055,pylint,Tests and test style,output,exact,0,Put a regression test in one of the two regression directories.
+PYLINT-DEV-C056,pylint,Tests and test style,output,exact,0,Prefix a regression test file name with regression_.
+PYLINT-DEV-C057,pylint,Tests and test style,output,approximate,0,Place a test file in a nested sub-directory whose name matches the word before the first underscore of the file name.
+PYLINT-DEV-C059,pylint,Tests and test style,trajectory,approximate,0,Regenerate a functional test's expected output with --update-functional-output.
+PYLINT-DEV-C060,pylint,Tests and test style,output,approximate,0,"Create a configuration test as a new, unused filename in the directory for that configuration format."
+PYLINT-DEV-C061,pylint,Tests and test style,output,exact,0,Add a .result.json file whose stem matches the configuration test file.
+PYLINT-DEV-C062,pylint,Tests and test style,output,approximate,0,Record only the difference from the standard configuration in the .result.json file.
+PYLINT-DEV-C063,pylint,Tests and test style,output,exact,0,Express an expected configuration failure with a .out file named for the test and its exit code.
+PYLINT-DEV-C065,pylint,Tests and test style,output,exact,0,Use the {abspath} and {relpath} placeholders for module and file name in a .out file.
+PYLINT-DEV-C066,pylint,Language and framework style,output,exact,0,Give a new checker class a name attribute.
+PYLINT-DEV-C067,pylint,Language and framework style,output,approximate,0,Declare every message a checker emits in its msgs dictionary.
+PYLINT-DEV-C068,pylint,Language and framework style,output,approximate,0,Name a checker's node handlers visit_ or leave_ followed by the lowered astroid class name.
+PYLINT-DEV-C069,pylint,Language and framework style,output,exact,0,Add a module-level register function that registers the checker with the linter.
+PYLINT-DEV-C070,pylint,Language and framework style,output,exact,0,Form a message id as one of the five category letters followed by four digits.
+PYLINT-DEV-C072,pylint,Language and framework style,output,exact,0,Keep the first two digits of a checker's message ids the same across that checker.
+PYLINT-DEV-C073,pylint,Language and framework style,output,exact,0,Change the message symbol whenever you change its message id.
+PYLINT-DEV-C075,pylint,Language and framework style,output,exact,0,Set the shared option to True on a message used by more than one checker.
+PYLINT-DEV-C076,pylint,Language and framework style,output,exact,0,Implement get_map_data and reduce_map_data as a matching pair on a checker that reduces data.
+PYLINT-DEV-C080,pylint,Language and framework style,output,approximate,0,Include the astroid proxy base in the isinstance tuple when replacing a hasattr guard.
+PYLINT-DEV-C082,pylint,AI-assisted contribution policy,trajectory,approximate,0,Consult .github/copilot-instructions.md before searching the repository for context.
+PYLINT-DEV-C093,pylint,Code and quality,trajectory,approximate,0,Run pre-commit run -a before committing.
+PYLINT-DEV-C094,pylint,Code and quality,trajectory,exact,0,Lint changed files with pylint --rcfile=pylintrc --fail-on=I.
+PYLINT-DEV-C097,pylint,Code and quality,trajectory,approximate,0,Validate a change by running pylint over sample code that exercises it.
+PYLINT-DEV-C098,pylint,Git and commit conventions,output,exact,0,Do not add venv to the repository's .gitignore.
+PYLINT-DEV-C099,pylint,Git and commit conventions,output,approximate,0,Do not commit a virtual environment directory.
+PYLINT-DEV-C100,pylint,Language and framework style,output,exact,0,Put a new checker class in the appropriate file under pylint/checkers/.
+PYTEST-DEV-C003,pytest,Documentation and docstrings,trajectory,exact,0,Build the documentation locally with `tox -e docs` after changing documentation.
+PYTEST-DEV-C004,pytest,Documentation and docstrings,output,approximate,0,Write docstrings for documented items in the Sphinx docstring format.
+PYTEST-DEV-C005,pytest,Documentation and docstrings,output,approximate,0,Start docstring sentences with a capital letter and end them with a period.
+PYTEST-DEV-C008,pytest,Documentation and docstrings,output,exact,0,Separate a docstring's detailed explanation from its subject line with a blank line.
+PYTEST-DEV-C009,pytest,AI-assisted contribution policy,trajectory,exact,1,Do not submit a contribution generated entirely by an AI agent without meaningful human review and oversight.
+PYTEST-DEV-C015,pytest,Code and quality,trajectory,exact,0,Install and enable pre-commit on the pytest checkout.
+PYTEST-DEV-C016,pytest,Language and framework style,output,approximate,0,Follow PEP-8 naming conventions in Python code.
+PYTEST-DEV-C017,pytest,Tests and test style,trajectory,exact,0,Run the test suite through tox before submitting the change.
+PYTEST-DEV-C018,pytest,Code and quality,trajectory,exact,0,Run the `linting` tox environment to perform the coding-style checks.
+PYTEST-DEV-C020,pytest,PR and release metadata,output,exact,0,Name the changelog file `<issue id>.<type>.rst`.
+PYTEST-DEV-C021,pytest,PR and release metadata,output,exact,0,"Use one of feature, improvement, bugfix, doc, deprecation, breaking, vendor, packaging, contrib or misc as the changelog entry type."
+PYTEST-DEV-C031,pytest,Git and commit conventions,trajectory,approximate,0,Commit only after the test suite passes.
+PYTEST-DEV-C036,pytest,Git and commit conventions,output,approximate,0,Add `closes #<issue number>` to the commit message when the change fixes an issue.
+PYTEST-DEV-C039,pytest,Specialized changes,output,approximate,0,Raise deprecations through a `PytestRemovedInXWarning` class naming the target major version.
+PYTEST-DEV-C042,pytest,Specialized changes,output,approximate,0,Ship deprecation errors or warnings that help users port their code as part of a breaking change.
+PYTEST-DEV-C044,pytest,Documentation and docstrings,output,exact,0,Document the rationale and porting examples for a breaking change in `doc/en/deprecations.rst`.
+PYTEST-DEV-C045,pytest,Language and framework style,output,approximate,0,Write code that runs on Python 3.10 and later.
+PYTEST-DEV-C048,pytest,PR and release metadata,output,approximate,0,Write changelog entries in the past or present tense.
+PYTEST-DEV-C049,pytest,PR and release metadata,output,approximate,0,End each changelog sentence with a period.
+PYTEST-DEV-C057,pytest,Documentation and docstrings,differential,approximate,0,Include documentation in the same change when adding a new feature.
+PYTEST-DEV-C058,pytest,Tests and test style,differential,approximate,0,Include new tests or update existing tests with the change.
+PYTEST-DEV-C062,pytest,AI-assisted contribution policy,output,approximate,0,Credit AI agents that were used in `Co-authored-by` commit trailers.
+SCIKIT-LEARN-C001,scikit-learn,AI-assisted contribution policy,trajectory,exact,1,Do not submit a pull request generated by a fully-automated tool.
+SCIKIT-LEARN-C029,scikit-learn,Tests and test style,output,approximate,0,Add new tests for the bug fix or feature the PR contributes.
+SCIKIT-LEARN-C030,scikit-learn,Tests and test style,differential,approximate,0,Make a bug-fix's new tests fail on unpatched main and pass with the patch applied.
+SCIKIT-LEARN-C033,scikit-learn,Tests and test style,differential,exact,0,Make the test suite pass locally before opening the PR.
+SCIKIT-LEARN-C036,scikit-learn,Documentation and docstrings,output,approximate,0,Illustrate a new feature with narrative user-guide documentation containing small code snippets.
+SCIKIT-LEARN-C038,scikit-learn,Documentation and docstrings,output,approximate,0,State the algorithm's expected time and space complexity and its scalability in the user guide.
+SCIKIT-LEARN-C039,scikit-learn,Documentation and docstrings,output,approximate,0,Add a usage example under examples/ for a new feature.
+SCIKIT-LEARN-C042,scikit-learn,PR and release metadata,output,approximate,0,"Do not use a bare ""Fix #<ISSUE NUMBER>"" as the PR title."
+SCIKIT-LEARN-C048,scikit-learn,PR and release metadata,output,approximate,0,Add a changelog fragment describing the change when the PR is likely to affect users.
+SCIKIT-LEARN-C054,scikit-learn,Git and commit conventions,output,approximate,0,"Prefix a documentation PR's title with ""DOC""."
+SCIKIT-LEARN-C055,scikit-learn,Git and commit conventions,output,exact,0,Put a CI commit-message marker in the latest commit message for it to take effect.
+SCIKIT-LEARN-C060,scikit-learn,Documentation and docstrings,output,approximate,0,"Keep function, method and class docstrings alongside the code in sklearn/."
+SCIKIT-LEARN-C062,scikit-learn,Documentation and docstrings,output,approximate,0,Put gallery examples under examples/.
+SCIKIT-LEARN-C064,scikit-learn,Documentation and docstrings,output,exact,0,"Order docstring sections Parameters, Returns, See Also, Notes, Examples."
+SCIKIT-LEARN-C065,scikit-learn,Documentation and docstrings,output,approximate,0,"Name parameter types with Python basic type names, e.g. bool rather than boolean."
+SCIKIT-LEARN-C066,scikit-learn,Documentation and docstrings,output,exact,0,Write array shapes in parentheses after 'of shape'.
+SCIKIT-LEARN-C067,scikit-learn,Documentation and docstrings,output,approximate,0,Write a string parameter's allowed values as a brace-enclosed set.
+SCIKIT-LEARN-C069,scikit-learn,Documentation and docstrings,output,approximate,0,Use the term dataframe when a parameter relies on frame-like features such as column names.
+SCIKIT-LEARN-C070,scikit-learn,Documentation and docstrings,output,approximate,0,"Write a list parameter's element type with 'of', as in 'list of int'."
+SCIKIT-LEARN-C071,scikit-learn,Documentation and docstrings,output,exact,0,Put the dtype after the shape when documenting an ndarray parameter.
+SCIKIT-LEARN-C072,scikit-learn,Documentation and docstrings,output,approximate,0,"Use integral and floating, not int and float, when documenting arbitrary precision."
+SCIKIT-LEARN-C073,scikit-learn,Documentation and docstrings,output,approximate,0,"Write a None default once, at the end of the type line, as default=None."
+SCIKIT-LEARN-C076,scikit-learn,Documentation and docstrings,output,approximate,0,Write each See Also entry on one line with a colon and an explanation.
+SCIKIT-LEARN-C077,scikit-learn,Documentation and docstrings,output,approximate,0,Use the .. rubric:: Note directive when adding a Note to an attribute.
+SCIKIT-LEARN-C078,scikit-learn,Documentation and docstrings,output,approximate,0,Put one or two code snippets in a docstring's Example section.
+SCIKIT-LEARN-C079,scikit-learn,Documentation and docstrings,output,approximate,0,"Make a docstring example runnable as is, including all required imports."
+SCIKIT-LEARN-C085,scikit-learn,Documentation and docstrings,output,approximate,0,Include a figure generated from an example in a new user-guide section.
+SCIKIT-LEARN-C086,scikit-learn,Documentation and docstrings,output,approximate,0,Include one or two short code examples in a user-guide section.
+SCIKIT-LEARN-C087,scikit-learn,Documentation and docstrings,output,approximate,0,"Put mathematical equations last in a user-guide section, followed by their references."
+SCIKIT-LEARN-C089,scikit-learn,Documentation and docstrings,output,approximate,0,Use single backticks for inline literals in .rst files.
+SCIKIT-LEARN-C092,scikit-learn,Documentation and docstrings,output,approximate,0,Do not put an Examples section inside a dropdown.
+SCIKIT-LEARN-C093,scikit-learn,Documentation and docstrings,output,approximate,0,Place the Examples section immediately after the main discussion.
+SCIKIT-LEARN-C095,scikit-learn,Documentation and docstrings,output,approximate,0,Cite arXiv and DOI references with the :arxiv: and :doi: sphinx roles.
+SCIKIT-LEARN-C097,scikit-learn,Documentation and docstrings,output,approximate,0,Link to a documentation section through a reference label and the :ref: role.
+SCIKIT-LEARN-C098,scikit-learn,Documentation and docstrings,output,exact,0,Do not rename or remove an existing sphinx reference label.
+SCIKIT-LEARN-C099,scikit-learn,Documentation and docstrings,output,approximate,0,Link glossary terms with the :term: role.
+SCIKIT-LEARN-C100,scikit-learn,Documentation and docstrings,output,exact,0,Link to a function with its full import path in the :func: role.
+SCIKIT-LEARN-C102,scikit-learn,Documentation and docstrings,output,exact,0,Link to a class with its full import path unless a currentmodule directive shortens it.
+SCIKIT-LEARN-C106,scikit-learn,Tests and test style,output,approximate,0,Put tests in the module's tests/ subdirectory as appropriately named functions.
+SCIKIT-LEARN-C116,scikit-learn,Language and framework style,output,approximate,0,Keep a renamed public name working for two releases and warn when it is used.
+SCIKIT-LEARN-C117,scikit-learn,Language and framework style,output,approximate,0,Decorate a renamed function or class with utils.deprecated and delegate to the new name.
+SCIKIT-LEARN-C118,scikit-learn,Language and framework style,output,approximate,0,Move the deprecated name to DEPRECATED_API_REFERENCE and add the new name to API_REFERENCE in doc/api_reference.py.
+SCIKIT-LEARN-C119,scikit-learn,Language and framework style,output,approximate,0,Deprecate an attribute or method with the utils.deprecated decorator on its property.
+SCIKIT-LEARN-C120,scikit-learn,Language and framework style,output,exact,0,Put the deprecated decorator above the property decorator.
+SCIKIT-LEARN-C121,scikit-learn,Language and framework style,output,approximate,0,Raise a FutureWarning manually when a deprecated parameter is passed.
+SCIKIT-LEARN-C122,scikit-learn,Language and framework style,output,approximate,0,"Validate a deprecated parameter and raise its warning in fit, not in __init__."
+SCIKIT-LEARN-C123,scikit-learn,Language and framework style,output,approximate,0,Name both the deprecation version and the removal version in the warning message.
+SCIKIT-LEARN-C124,scikit-learn,Language and framework style,output,approximate,0,"Quote the release version, not the dev version, and set removal two releases later."
+SCIKIT-LEARN-C126,scikit-learn,Documentation and docstrings,output,approximate,0,Add a .. deprecated:: note to the docstring repeating the warning's information.
+SCIKIT-LEARN-C127,scikit-learn,Tests and test style,output,approximate,0,Add a test asserting the deprecation warning is raised only in the relevant cases.
+SCIKIT-LEARN-C128,scikit-learn,Tests and test style,output,approximate,0,"Catch the deprecation warning in every other test, e.g. with @pytest.mark.filterwarnings."
+SCIKIT-LEARN-C129,scikit-learn,Tests and test style,output,approximate,0,Leave the gallery examples free of the deprecation warning.
+SCIKIT-LEARN-C130,scikit-learn,Language and framework style,output,approximate,0,Replace a changing default with a sentinel value and raise FutureWarning when it is left in place.
+SCIKIT-LEARN-C132,scikit-learn,Documentation and docstrings,output,approximate,0,Add a .. versionchanged:: directive to the parameter docstring giving the old and new defaults.
+SCIKIT-LEARN-C136,scikit-learn,Language and framework style,output,approximate,0,Do not accept training data as an argument to an estimator's __init__.
+SCIKIT-LEARN-C138,scikit-learn,Documentation and docstrings,output,approximate,0,"Document constructor arguments under Parameters, not under Attributes."
+SCIKIT-LEARN-C139,scikit-learn,Language and framework style,output,approximate,0,Set an instance attribute for every keyword argument __init__ accepts.
+SCIKIT-LEARN-C141,scikit-learn,Language and framework style,output,approximate,0,Put no logic and no input validation in an estimator's __init__.
+SCIKIT-LEARN-C142,scikit-learn,Language and framework style,output,approximate,0,"Copy a mutable constructor argument before modifying it, and do so where it is used."
+SCIKIT-LEARN-C143,scikit-learn,Language and framework style,output,approximate,0,Do not set trailing-underscore attributes inside __init__.
+SCIKIT-LEARN-C144,scikit-learn,Language and framework style,differential,approximate,0,Raise ValueError when X and y have different numbers of samples.
+SCIKIT-LEARN-C145,scikit-learn,Language and framework style,output,approximate,0,Accept an ignored y=None keyword in second position on an unsupervised estimator's fit.
+SCIKIT-LEARN-C146,scikit-learn,Language and framework style,output,exact,0,"Accept y in second position on fit_predict, fit_transform, score and partial_fit."
+SCIKIT-LEARN-C147,scikit-learn,Language and framework style,output,exact,0,Return self from fit.
+SCIKIT-LEARN-C148,scikit-learn,Language and framework style,output,approximate,0,Take any parameter that can be set before seeing the data as an __init__ keyword argument.
+SCIKIT-LEARN-C151,scikit-learn,Language and framework style,output,approximate,0,Name every public learned attribute with a trailing underscore.
+SCIKIT-LEARN-C152,scikit-learn,Language and framework style,output,approximate,0,Name a learned but non-public attribute with a leading underscore.
+SCIKIT-LEARN-C153,scikit-learn,Documentation and docstrings,output,approximate,0,Document trailing-underscore attributes in the docstring's Attributes section.
+SCIKIT-LEARN-C155,scikit-learn,Language and framework style,output,approximate,0,Set n_features_in_ at fit time on an estimator that expects tabular input.
+SCIKIT-LEARN-C156,scikit-learn,Language and framework style,output,approximate,0,Set feature_names_in_ when the estimator is fitted on a dataframe.
+SCIKIT-LEARN-C158,scikit-learn,Language and framework style,output,approximate,0,Inherit a new estimator from BaseEstimator.
+SCIKIT-LEARN-C159,scikit-learn,Language and framework style,output,approximate,0,List mixins before BaseEstimator in a new estimator's bases.
+SCIKIT-LEARN-C160,scikit-learn,Language and framework style,output,approximate,0,Return an estimator instance from __sklearn_clone__.
+SCIKIT-LEARN-C161,scikit-learn,Language and framework style,output,approximate,0,Make a transformer inherit TransformerMixin and implement transform.
+SCIKIT-LEARN-C162,scikit-learn,Language and framework style,differential,approximate,0,Keep transform's output aligned one-to-one and in order with its input samples.
+SCIKIT-LEARN-C163,scikit-learn,Language and framework style,output,approximate,0,"Make a regressor inherit RegressorMixin, implement predict and accept numerical y."
+SCIKIT-LEARN-C164,scikit-learn,Language and framework style,output,approximate,0,Make a classifier inherit ClassifierMixin.
+SCIKIT-LEARN-C165,scikit-learn,Language and framework style,differential,approximate,0,Accept string or integer label sequences as y in a classifier's fit.
+SCIKIT-LEARN-C166,scikit-learn,Language and framework style,output,approximate,0,Store the observed labels in classes_ instead of assuming a contiguous integer range.
+SCIKIT-LEARN-C167,scikit-learn,Language and framework style,differential,approximate,0,"Order classes_ to match the column order of predict_proba, predict_log_proba and decision_function."
+SCIKIT-LEARN-C168,scikit-learn,Language and framework style,differential,approximate,0,Return labels drawn from classes_ out of a classifier's predict.
+SCIKIT-LEARN-C169,scikit-learn,Language and framework style,output,approximate,0,Make a clustering algorithm inherit ClusterMixin.
+SCIKIT-LEARN-C171,scikit-learn,Language and framework style,output,approximate,0,Set a labels_ attribute holding the per-sample cluster assignment.
+SCIKIT-LEARN-C173,scikit-learn,Language and framework style,output,approximate,0,Give every attribute added to a Tags subclass a default value.
+SCIKIT-LEARN-C175,scikit-learn,Language and framework style,output,exact,0,Do not let a super class's __init_subclass__ depend on auto_wrap_output_keys.
+SCIKIT-LEARN-C176,scikit-learn,Language and framework style,output,approximate,0,Give __sklearn_is_fitted__ no parameters and a boolean return.
+SCIKIT-LEARN-C177,scikit-learn,Language and framework style,output,approximate,0,Override _doc_link_module and _doc_link_template to customize an estimator's doc link.
+SCIKIT-LEARN-C178,scikit-learn,Language and framework style,output,approximate,0,Set _doc_link_module to the top-level module name containing the estimator.
+SCIKIT-LEARN-C179,scikit-learn,Language and framework style,output,approximate,0,Return a dict of template variables from _doc_link_url_param_generator.
+SCIKIT-LEARN-C180,scikit-learn,Code and quality,output,approximate,0,Format contributed Python code according to PEP8.
+SCIKIT-LEARN-C181,scikit-learn,Language and framework style,output,approximate,0,Separate words with underscores in non-class names.
+SCIKIT-LEARN-C182,scikit-learn,Language and framework style,output,approximate,0,"Put no more than one statement on a line, and break after if and for."
+SCIKIT-LEARN-C183,scikit-learn,Language and framework style,output,exact,0,Use absolute imports.
+SCIKIT-LEARN-C184,scikit-learn,Tests and test style,output,approximate,0,"Import the object under test from its public location, as client code would."
+SCIKIT-LEARN-C185,scikit-learn,Language and framework style,output,exact,0,Never use a star import.
+SCIKIT-LEARN-C186,scikit-learn,Documentation and docstrings,output,approximate,0,Write docstrings in the numpydoc standard.
+SCIKIT-LEARN-C189,scikit-learn,Language and framework style,output,approximate,0,Do not use np.asanyarray or np.atleast_2d for input validation.
+SCIKIT-LEARN-C190,scikit-learn,Language and framework style,output,approximate,0,Call check_array on any array-like argument to a public API function.
+SCIKIT-LEARN-C191,scikit-learn,Language and framework style,output,approximate,0,Do not call numpy.random.random or similar module-level RNG routines.
+SCIKIT-LEARN-C192,scikit-learn,Language and framework style,output,approximate,0,Take a random_state keyword and build a RandomState from it.
+SCIKIT-LEARN-C193,scikit-learn,Language and framework style,output,approximate,0,Give an estimator a random_state __init__ argument defaulting to None.
+SCIKIT-LEARN-C194,scikit-learn,Language and framework style,output,approximate,0,Store the random_state argument unmodified in an attribute of the same name.
+SCIKIT-LEARN-C196,scikit-learn,Language and framework style,output,approximate,0,Store a post-fit generator in the random_state_ attribute.
+SCIKIT-LEARN-C197,scikit-learn,Tests and test style,output,approximate,0,Assert quasi-equality of float arrays with sklearn.utils._testing.assert_allclose.
+SCIKIT-LEARN-C198,scikit-learn,Tests and test style,output,approximate,0,Pass a non-zero atol when comparing arrays containing zeros.
+SCIKIT-LEARN-C199,scikit-learn,Language and framework style,output,approximate,0,"Define from_estimator, from_predictions or both on a Display class."
+SCIKIT-LEARN-C200,scikit-learn,Language and framework style,output,approximate,0,Accept only the computed data in a Display's __init__.
+SCIKIT-LEARN-C201,scikit-learn,Language and framework style,output,approximate,0,Restrict a Display's plot method parameters to visualization concerns.
+SCIKIT-LEARN-C202,scikit-learn,Language and framework style,output,approximate,0,Store the matplotlib artists created by plot as attributes on the Display.
+SCIKIT-LEARN-C203,scikit-learn,Language and framework style,output,approximate,0,Return the result of plot() from a Display's from_estimator and from_predictions.
+SCIKIT-LEARN-C204,scikit-learn,Language and framework style,output,approximate,0,Validate the number of axes when a list of axes is passed to plot.
+SCIKIT-LEARN-C206,scikit-learn,Language and framework style,output,exact,0,"Import matplotlib inside the plotting function, never at module level."
+SCIKIT-LEARN-C207,scikit-learn,Language and framework style,output,exact,0,Call check_matplotlib_support before importing matplotlib.
+SCIKIT-LEARN-C208,scikit-learn,Tests and test style,output,approximate,0,Take the pyplot fixture as the first argument of every test that needs matplotlib.
+SCIKIT-LEARN-C210,scikit-learn,Specialized changes,output,approximate,0,Do not slice memoryviews in Cython code.
+SCIKIT-LEARN-C211,scikit-learn,Specialized changes,output,approximate,0,Decorate final Cython classes and methods with @final.
+SCIKIT-LEARN-C214,scikit-learn,Specialized changes,output,approximate,0,Release the GIL explicitly with prange(nogil=True) or a with nogil block.
+SCIKIT-LEARN-C216,scikit-learn,Specialized changes,output,approximate,0,Guard every direct OpenMP call so the code still builds without OpenMP.
+SCIKIT-LEARN-C217,scikit-learn,Specialized changes,output,exact,0,"cimport OpenMP routines from sklearn.utils._openmp_helpers, not from the OpenMP library."
+SCIKIT-LEARN-C218,scikit-learn,Specialized changes,output,approximate,0,Declare explicit types in Cython code.
+SCIKIT-LEARN-C220,scikit-learn,Specialized changes,output,exact,0,Do not use {var=} f-string expressions in Cython code.
+SCIKIT-LEARN-C221,scikit-learn,Language and framework style,output,approximate,0,Inherit from CallbackSupportMixin to give an estimator callback support.
+SCIKIT-LEARN-C222,scikit-learn,Language and framework style,output,approximate,0,Call _init_callback_context at the start of fit to create the root callback context.
+SCIKIT-LEARN-C223,scikit-learn,Language and framework style,output,approximate,0,Decorate a third-party callback-supporting estimator's fit with with_callbacks.
+SCIKIT-LEARN-C224,scikit-learn,Language and framework style,output,approximate,0,Do not use with_callbacks on a built-in scikit-learn estimator.
+SCIKIT-LEARN-C225,scikit-learn,Language and framework style,output,approximate,0,Implement the full FitCallback protocol on a callback.
+SCIKIT-LEARN-C226,scikit-learn,Language and framework style,output,approximate,0,Declare only the optional hook arguments the callback actually uses.
+SCIKIT-LEARN-C227,scikit-learn,Language and framework style,output,approximate,0,Define a hook's optional arguments as keyword-only.
+SCIKIT-LEARN-C229,scikit-learn,Language and framework style,output,approximate,0,Do not call predict or transform on the estimator a hook receives; use fitted_estimator.
+SCIKIT-LEARN-C230,scikit-learn,Language and framework style,output,approximate,0,Implement the AutoPropagatedCallback protocol on a callback meant to propagate to sub-estimators.
+SCIKIT-LEARN-C231,scikit-learn,Language and framework style,output,approximate,0,Do not reset callback state in setup or teardown; accumulate across fits.
+SCIKIT-LEARN-C232,scikit-learn,Tests and test style,output,approximate,0,Seed each test's own RNG instance instead of relying on the global RNG singletons.
+SCIKIT-LEARN-C233,scikit-learn,Tests and test style,differential,exact,0,Make a test using the global_random_seed fixture pass for every seed from 0 to 99.
+SCIKIT-LEARN-C234,scikit-learn,Tests and test style,trajectory,exact,0,"Run a new global_random_seed test with SKLEARN_TESTS_GLOBAL_RANDOM_SEED=""all"" before submitting."
+SCIKIT-LEARN-C235,scikit-learn,Specialized changes,output,approximate,0,Do not set SKLEARN_TESTS_GLOBAL_RANDOM_SEED in the pull-request CI configuration.
+SCIKIT-LEARN-C241,scikit-learn,Code and quality,output,approximate,0,Isolate the profiled bottleneck in a dedicated module-level function before compiling it.
+SCIKIT-LEARN-C243,scikit-learn,Tests and test style,output,approximate,0,Keep the Python version of a compiled function in the tests as the reference implementation.
+SCIKIT-LEARN-C245,scikit-learn,Tests and test style,trajectory,exact,0,Run the tests with -Werror::FutureWarning so uncaught FutureWarnings fail locally.
+SCIKIT-LEARN-C252,scikit-learn,AI-assisted contribution policy,trajectory,approximate,0,Edit the AI usage list to keep only the categories of AI assistance you used.
+SCIKIT-LEARN-C254,scikit-learn,AI-assisted contribution policy,trajectory,approximate,0,"Include the AI/agent disclosure in every summary, PR description and work description."
+SCIKIT-LEARN-C255,scikit-learn,AI-assisted contribution policy,trajectory,approximate,0,Use the exact disclosure wording naming AI assistance and the absence of human review.
+SCIKIT-LEARN-C256,scikit-learn,AI-assisted contribution policy,trajectory,approximate,0,Put the disclosure at the end of the generated summary.
+SCIKIT-LEARN-C268,scikit-learn,PR and release metadata,output,exact,0,Name the changelog fragment <PULL REQUEST>.<TYPE>.rst.
+SCIKIT-LEARN-C269,scikit-learn,PR and release metadata,output,exact,0,Use one of the seven documented fragment types in the changelog filename.
+SCIKIT-LEARN-C270,scikit-learn,PR and release metadata,output,approximate,0,Put the fragment in the folder matching the module the PR changes.
+SCIKIT-LEARN-C271,scikit-learn,PR and release metadata,output,exact,0,Write the changelog fragment as a single bullet point.
+SPHINX-DOC-C004,sphinx,Tests and test style,output,approximate,0,Include tests demonstrating the bug fix or the new feature alongside the code change.
+SPHINX-DOC-C005,sphinx,PR and release metadata,output,approximate,0,Add a bullet point to CHANGES.rst for any change that is not trivial.
+SPHINX-DOC-C014,sphinx,Documentation and docstrings,output,approximate,0,Document every new feature that the change adds.
+SPHINX-DOC-C017,sphinx,Documentation and docstrings,output,approximate,0,Document any new configuration variable in the configuration documentation.
+SPHINX-DOC-C020,sphinx,Code and quality,output,exact,0,Ensure the change passes ruff's lint checks.
+SPHINX-DOC-C021,sphinx,Code and quality,output,approximate,0,Format the code with ruff format.
+SPHINX-DOC-C022,sphinx,Code and quality,output,exact,0,Ensure the change type-checks cleanly under mypy.
+SPHINX-DOC-C024,sphinx,Tests and test style,trajectory,exact,0,Run the JavaScript test suite with npm when the change touches JavaScript.
+SPHINX-DOC-C025,sphinx,Tests and test style,output,exact,0,Place new unit tests in the tests/ directory.
+SPHINX-DOC-C026,sphinx,Tests and test style,differential,approximate,0,"For a bug fix, add a test that fails before the patch is applied and passes after it."
+SPHINX-DOC-C030,sphinx,Documentation and docstrings,output,approximate,0,Make documentation changes in the source files under doc/.
+SPHINX-DOC-C031,sphinx,Documentation and docstrings,trajectory,exact,0,Build the documentation with sphinx-build using --fail-on-warning.
+SPHINX-DOC-C032,sphinx,Specialized changes,output,exact,0,Do not modify the gettext translation files directly in a pull request.
+SPHINX-DOC-C033,sphinx,Specialized changes,output,exact,0,Regenerate the search stemmers and stopword files with utils/generate_snowball.py rather than editing them by hand.
+SPHINX-DOC-C034,sphinx,Specialized changes,output,approximate,0,Regenerate the minified search JavaScript from the non-minified sources with uglifyjs.
+SPHINX-DOC-C035,sphinx,Specialized changes,output,approximate,0,Regenerate the tests/js/fixtures searchindex.js files with utils/generate_js_fixtures.py.
+SPHINX-DOC-C039,sphinx,AI-assisted contribution policy,trajectory,exact,1,Do not use AI to automatically generate code comments.
+SPHINX-DOC-C041,sphinx,AI-assisted contribution policy,trajectory,approximate,0,Disclose whether AI was used in developing the pull request.
+SPHINX-DOC-C042,sphinx,AI-assisted contribution policy,trajectory,approximate,0,Document which AI tools were used and how they were used.
+SPHINX-DOC-C043,sphinx,AI-assisted contribution policy,trajectory,approximate,0,Specify which code or text in the contribution is AI generated.
+SPHINX-DOC-C050,sphinx,AI-assisted contribution policy,trajectory,exact,1,Do not let an AI agent write code and open a pull request autonomously.
+SPHINX-DOC-C060,sphinx,Specialized changes,output,approximate,0,Raise a RemovedInSphinxXXWarning when a newly deprecated feature is invoked.
+SPHINX-DOC-C061,sphinx,Specialized changes,differential,approximate,0,Eliminate or silence the deprecation warnings a new RemovedInSphinxXXWarning raises in the test suite.
+SPHINX-DOC-C062,sphinx,Specialized changes,output,exact,0,Do not remove a deprecated feature before the second major release after its deprecation.
+SYMPY-C001,sympy,Code and quality,output,exact,0,"Before merge, a contribution must pass `python bin/test quality`."
+SYMPY-C002,sympy,Code and quality,output,exact,0,"Before merge, a contribution must pass `flake8 sympy/`."
+SYMPY-C003,sympy,Code and quality,output,exact,0,"Before merge, a contribution must pass `ruff check sympy`."
+SYMPY-C006,sympy,PR and release metadata,trajectory,exact,0,A pull request description must cross-reference relevant issues.
+SYMPY-C007,sympy,PR and release metadata,output,exact,0,"If merging the pull request should close an issue, its description must use `fixes #<issue-number>` syntax."
+SYMPY-C009,sympy,PR and release metadata,trajectory,exact,0,A pull request must include a release-notes entry in its description before merge.
+SYMPY-C012,sympy,Git and commit conventions,trajectory,exact,0,"Before changing code, a contributor must create and check out a contribution branch, for example with `git checkout -b <branch-name>`."
+SYMPY-C013,sympy,Git and commit conventions,trajectory,exact,0,A contributor must not commit contribution changes directly to `master`.
+SYMPY-C014,sympy,Git and commit conventions,trajectory,exact,0,"While checked out on `master`, a contributor must not run `git merge`, `git add`, `git commit`, or `git rebase`."
+SYMPY-C018,sympy,Documentation and docstrings,output,exact,0,A doctest must not use `from sympy import *`; it must import every used SymPy name explicitly.
+SYMPY-C021,sympy,Git and commit conventions,output,exact,0,"Before merge, editor configuration, binary, and temporary junk files must be removed from the contribution."
+SYMPY-C023,sympy,Git and commit conventions,output,exact,0,A commit-message summary line must be no longer than 71 characters.
+SYMPY-C024,sympy,Git and commit conventions,output,exact,0,Every commit-message body line must be no longer than 78 characters.
+SYMPY-C025,sympy,Git and commit conventions,output,exact,0,A commit message must separate its summary from its body with a blank line.
+SYMPY-C026,sympy,Git and commit conventions,output,exact,0,A commit-message summary must not end with a period.
+SYMPY-C030,sympy,Git and commit conventions,output,approximate,0,A commit-message body must use complete sentences.
+SYMPY-C034,sympy,Git and commit conventions,trajectory,exact,0,"If a commit credits a co-author through GitHub, each trailer must appear at the bottom of the commit message in the exact form `Co-authored-by: <name> <email>`."
+SYMPY-C035,sympy,PR and release metadata,output,exact,0,"If a pull request is not ready to merge, it must be marked Draft or have a `[WIP]` title prefix."
+SYMPY-C036,sympy,PR and release metadata,output,exact,0,"Before final review, a pull request must no longer be Draft and must not retain a `[WIP]` title prefix."
+SYMPY-C037,sympy,PR and release metadata,output,exact,0,"A pull-request author must complete the repository's pull-request description template, including issue references and release notes."
+SYMPY-C039,sympy,PR and release metadata,output,exact,0,A pull-request title must contain neither issue numbers nor file names; issue numbers belong in the description.
+SYMPY-C040,sympy,Git and commit conventions,output,exact,0,A contributor must not edit `AUTHORS` directly; contributor identity changes must be made through `.mailmap`.
+SYMPY-C041,sympy,Git and commit conventions,output,exact,0,The source identity in a contributor's `.mailmap` entry must exactly match the name and email stored in their Git commit metadata.
+SYMPY-C042,sympy,Git and commit conventions,trajectory,exact,0,"After editing `.mailmap`, the contributor must run `python bin/mailmap_check.py` until it reports `No changes needed in .mailmap`, thereby placing entries in alphabetical order."
+SYMPY-C043,sympy,Git and commit conventions,trajectory,exact,0,"After `python bin/mailmap_check.py` reports `No changes needed in .mailmap`, the contributor must stage `.mailmap` with `git add .mailmap` and commit it with an `author: add <name> to .mailmap` message."
+SYMPY-C046,sympy,PR and release metadata,output,exact,0,"To close an issue or pull request automatically, the pull-request description must place the autoclose sequence in an opening paragraph."
+SYMPY-C048,sympy,PR and release metadata,output,exact,0,"If a pull request should close multiple issues or pull requests, it must repeat an autoclose keyword immediately before every `#<number>`."
+SYMPY-C050,sympy,PR and release metadata,output,exact,0,"If a pull request must not close an issue, its description must not place an autoclose keyword next to that issue number even inside a negated sentence such as `does not fix #12345`."
+SYMPY-C052,sympy,PR and release metadata,output,exact,0,Every pull-request description must contain a release-notes block between `<!-- BEGIN RELEASE NOTES -->` and `<!-- END RELEASE NOTES -->`.
+SYMPY-C053,sympy,PR and release metadata,output,exact,0,"Each release-note header must exactly match one current non-comment entry in `sympy_bot/submodules.txt`: `abc`, `algebras`, `assumptions`, `benchmarks`, `calculus`, `categories`, `codegen`, `combinatorics`, `concrete`, `core`, `crypto`, `diffgeom`, `discrete`, `external`, `functions`, `geometry`, `holonomic`, `integrals`, `interactive`, `liealgebras`, `logic`, `matrices`, `ntheory`, `parsing`, `physics.biomechanics`, `physics.continuum_mechanics`, `physics.control`, `physics.gaussopt`, `physics.hep`, `physics.hydrogen`, `physics.matrices`, `physics.mechanics`, `physics.optics`, `physics.paulialgebra`, `physics.pring`, `physics.qho_1d`, `physics.quantum`, `physics.secondquant`, `physics.sho`, `physics.units`, `physics.vector`, `physics.wigner`, `plotting`, `polys`, `printing`, `sandbox`, `series`, `sets`, `simplify`, `solvers`, `stats`, `strategies`, `tensor`, `testing`, `unify`, `utilities`, `vector`, `other`."
+SYMPY-C054,sympy,PR and release metadata,output,exact,0,"Under each release-note submodule header, changes must be written as a Markdown list."
+SYMPY-C055,sympy,PR and release metadata,output,exact,0,"If a pull request does not warrant release notes, its release-notes block must contain exactly `NO ENTRY`."
+SYMPY-C060,sympy,PR and release metadata,output,exact,0,Each release-note entry must be a complete sentence beginning with a capital letter and ending with a period.
+SYMPY-C061,sympy,PR and release metadata,output,exact,0,A release-note entry must contain neither a pull-request number nor author names; the bot adds them automatically.
+SYMPY-C063,sympy,PR and release metadata,output,exact,0,A release-note entry must not contain issue numbers; issue references belong elsewhere in the pull-request description.
+SYMPY-C065,sympy,PR and release metadata,output,approximate,0,"Every release-note entry must use past tense, be self-contained, and be phrased for direct insertion into the wiki rather than referring to `this pull request`."
+SYMPY-C066,sympy,PR and release metadata,output,approximate,0,A release-note entry must omit first-person phrases such as `I have fixed` and pull-request-relative phrases such as `this pull request fixes`.
+SYMPY-C069,sympy,Tests and test style,differential,approximate,0,"If a contribution adds new functionality, it must include tests."
+SYMPY-C071,sympy,Tests and test style,differential,exact,0,"Before merge, every pull request must pass the complete test suite."
+SYMPY-C076,sympy,Tests and test style,output,exact,0,A test function must have a name beginning with `test_`.
+SYMPY-C078,sympy,Tests and test style,output,exact,0,"When validating the complete local test and doctest suites, a contributor must run both `python bin/test` and `python bin/doctest` and require both commands to pass."
+SYMPY-C084,sympy,Tests and test style,output,exact,0,"When testing an expected exception, the test must use `sympy.testing.pytest.raises`."
+SYMPY-C085,sympy,Tests and test style,output,exact,0,"When calling `sympy.testing.pytest.raises(ExceptionType, ...)`, the tested expression must be wrapped in `lambda`, unless the context-manager form is required."
+SYMPY-C086,sympy,Tests and test style,output,exact,0,A `SymPyDeprecationWarning` test must use `sympy.testing.pytest.warns_deprecated_sympy()` unless stacklevel checking is explicitly disabled.
+SYMPY-C089,sympy,Tests and test style,output,exact,0,Code that emits a warning must set `stacklevel` so the warning identifies the user's calling line.
+SYMPY-C090,sympy,Tests and test style,output,exact,0,"If a deprecation warning cannot set `stacklevel` correctly, its test must use `warns(SymPyDeprecationWarning, test_stacklevel=False)` instead of `warns_deprecated_sympy()`."
+SYMPY-C091,sympy,Tests and test style,output,approximate,0,Deprecated behavior may be called only inside its dedicated `warns_deprecated_sympy()` test; all other tests must use non-deprecated behavior.
+SYMPY-C094,sympy,Tests and test style,output,approximate,0,"To assert that an expression remains unevaluated, a test must use `sympy.core.expr.unchanged(function, *args)` rather than compare repeated evaluations."
+SYMPY-C095,sympy,Tests and test style,output,approximate,0,"If an expression result contains `Dummy`, the test must compare it with `.dummy_eq(expected)` rather than direct `==`."
+SYMPY-C097,sympy,Tests and test style,differential,exact,0,"After adding a random test, the contributor must run it multiple times and confirm it consistently passes."
+SYMPY-C098,sympy,Tests and test style,output,approximate,0,"A test skipped because it is expected to fail must use `@XFAIL`, not `@SKIP` or `skip()`."
+SYMPY-C099,sympy,Tests and test style,output,approximate,0,"A test skipped only because it is slow must use `@slow`, not `@SKIP` or `skip()`."
+SYMPY-C102,sympy,Tests and test style,differential,exact,0,"If an XFAIL test begins to pass, the contributor must remove `@XFAIL` so it becomes a normal test."
+SYMPY-C104,sympy,Tests and test style,differential,exact,0,A test taking more than one minute must be marked with `sympy.testing.pytest.slow` as `@slow`.
+SYMPY-C105,sympy,Tests and test style,differential,exact,0,A hanging test must use `@SKIP` instead of `@slow`.
+SYMPY-C106,sympy,Tests and test style,trajectory,exact,0,"When validating tests marked `@slow` locally, a contributor must run `python bin/test --slow` and require it to pass."
+SYMPY-C107,sympy,Tests and test style,output,exact,0,A test for optional-dependency functionality must import the dependency with `sympy.external.import_module()` so absence returns `None` instead of failing import.
+SYMPY-C112,sympy,Tests and test style,output,exact,0,"Before acceptance, contributed doctests must pass when run with `python bin/doctest` (optionally followed by a file or submodule argument)."
+SYMPY-C113,sympy,Tests and test style,output,exact,0,Each doctest must be self-contained and explicitly import every function it uses.
+SYMPY-C114,sympy,Tests and test style,output,approximate,0,"Each doctest must explicitly define every symbol it uses, importing common names from `sympy.abc` or creating other/assumed symbols with `symbols()`."
+SYMPY-C115,sympy,Tests and test style,differential,exact,0,A doctest must show `>>>` before inputs and exact Python-session output strings after them.
+SYMPY-C118,sympy,Tests and test style,output,approximate,0,"A dependency-requiring doctest must declare libraries with `@doctest_depends_on(...)`, not `# doctest: +SKIP`."
+SYMPY-C119,sympy,Tests and test style,output,approximate,0,"If expected doctest output contains a blank line, the expected output must contain the literal marker `<BLANKLINE>` in its place."
+SYMPY-C126,sympy,Tests and test style,output,exact,0,"To display a `None` result in a doctest, the example must call `print(<expression>)` so the expected output contains `None`."
+SYMPY-C130,sympy,Tests and test style,differential,exact,0,"Before updating an expected expression, the contributor must verify equivalence for all relevant domains, using methods such as simplification, random values, or `.equals()`."
+SYMPY-C137,sympy,Tests and test style,output,approximate,0,"Unless testing floating-point behavior, a test must use exact SymPy values such as `S(1)/2`, not Python float-producing expressions such as `1/2`."
+SYMPY-C139,sympy,Tests and test style,output,approximate,0,"Except in printer tests, assertions must compare SymPy expressions directly rather than their `str(...)` forms."
+SYMPY-C140,sympy,Tests and test style,output,approximate,0,"Except in parser tests, test inputs must construct expressions directly rather than call `sympify()` on string expressions."
+SYMPY-C141,sympy,Tests and test style,output,approximate,0,"An assumptions test must compare with `is True`, `is False`, or `is None`, not rely on truthiness."
+SYMPY-C142,sympy,Tests and test style,output,approximate,0,"If a test intentionally exercises floating-point behavior, it must use an explicit float literal such as `0.5`, not integer division such as `1/2`."
+SYMPY-C146,sympy,Documentation and docstrings,trajectory,exact,0,"When validating documentation with locally installed dependencies, the contributor must run `cd doc` and then `make html`, and the build must succeed."
+SYMPY-C150,sympy,Documentation and docstrings,output,exact,0,"If the PDF documentation build fails, the contributor must ensure code is delimited with double backticks rather than single backticks."
+SYMPY-C151,sympy,Specialized changes,output,exact,0,"When SymPy library code imports an optional dependency, it must use `sympy.external.import_module()` rather than importing the dependency directly."
+SYMPY-C152,sympy,Specialized changes,output,exact,0,SymPy tests must use wrappers from `sympy.testing.pytest` instead of calling pytest functions directly.
+SYMPY-C153,sympy,Specialized changes,output,approximate,0,"A test requiring an optional dependency must remain runnable without that dependency by calling `sympy.testing.pytest.skip(""<reason>"")` or, for an entire file, setting `skip = True`."
+SYMPY-C168,sympy,Documentation and docstrings,output,exact,0,A docstring must use triple double quotes.
+SYMPY-C169,sympy,Documentation and docstrings,output,exact,0,"If a docstring contains a backslash, it must use a raw triple-double-quoted string."
+SYMPY-C170,sympy,Documentation and docstrings,output,exact,0,A docstring must contain a blank line immediately before its closing quotes.
+SYMPY-C172,sympy,Documentation and docstrings,output,exact,0,A class-level docstring must appear immediately under its class definition.
+SYMPY-C173,sympy,Documentation and docstrings,output,approximate,0,"Python example code in a docstring must be formatted as a doctest, not a `::` code block."
+SYMPY-C175,sympy,Documentation and docstrings,trajectory,exact,0,A documentation contribution must produce no Sphinx errors when built locally with `cd doc; make html` or with `docker run --rm -v /absolute/path/to/sympy:/sympy sympy_htmldoc` after substituting the actual checkout path.
+SYMPY-C176,sympy,Documentation and docstrings,output,exact,0,"Function, class, and method docstrings should order sections as Summary, Explanation, Examples, Parameters, See Also, References."
+SYMPY-C177,sympy,Documentation and docstrings,output,exact,0,"Supported docstring section names must remain exact, including plural `Examples` even for one example."
+SYMPY-C178,sympy,Documentation and docstrings,output,exact,0,A docstring section heading must be underlined by the same number of equals signs as heading characters.
+SYMPY-C180,sympy,Documentation and docstrings,output,exact,0,Every docstring must begin with a single-sentence summary.
+SYMPY-C181,sympy,Documentation and docstrings,output,exact,0,A docstring summary must occupy one line and end with a period.
+SYMPY-C183,sympy,Documentation and docstrings,output,exact,0,Every docstring must contain an `Examples` section.
+SYMPY-C184,sympy,Documentation and docstrings,output,exact,0,An Examples section must contain a blank line immediately before its first doctest.
+SYMPY-C185,sympy,Documentation and docstrings,output,approximate,0,Multiple docstring examples must be separated by blank lines.
+SYMPY-C186,sympy,Documentation and docstrings,output,exact,0,Explanatory text between doctests must have blank lines both before and after it.
+SYMPY-C188,sympy,Documentation and docstrings,output,exact,0,A doctest input longer than 80 characters must be wrapped as valid Python using the `...` continuation prompt.
+SYMPY-C190,sympy,Documentation and docstrings,trajectory,exact,0,"After adding or changing a docstring example, the contributor must run `python bin/doctest <file-or-submodule>` or `python bin/doctest` and fix every failure."
+SYMPY-C191,sympy,Documentation and docstrings,output,exact,0,"If the documented signature lists parameters, the docstring must include a `Parameters` section."
+SYMPY-C192,sympy,Documentation and docstrings,output,exact,0,Parameter names in a Parameters section must use double-backtick code markup.
+SYMPY-C193,sympy,Documentation and docstrings,output,exact,0,A typed parameter entry must format its separator as `name : type`; omit the colon when no type is supplied.
+SYMPY-C194,sympy,Documentation and docstrings,output,exact,0,"If a See Also description spans multiple lines, every continuation line must be indented."
+SYMPY-C195,sympy,Documentation and docstrings,output,exact,0,"A See Also section must contain only SymPy functions, classes, or methods; external links belong in prose or References."
+SYMPY-C196,sympy,Documentation and docstrings,output,exact,0,"In See Also, a class must be written as its bare class name, not `class:Name`, `class:`Name``, or `:class:`Name``."
+SYMPY-C197,sympy,Documentation and docstrings,output,exact,0,A References section must number citations from 1 in first-citation order.
+SYMPY-C199,sympy,Documentation and docstrings,output,exact,0,A paper reference with a DOI must include that DOI as a clickable hyperlink.
+SYMPY-C203,sympy,Documentation and docstrings,output,exact,0,"For a mathematical-function class, documentation must live at class level and the `eval` method must not have its own docstring."
+SYMPY-C206,sympy,Documentation and docstrings,output,approximate,0,"Prose references to documented SymPy objects must use Sphinx cross-reference syntax, normally `:obj:`~.name`` for top-level public objects."
+SYMPY-C207,sympy,Documentation and docstrings,output,approximate,0,A SymPy object not exported from top-level `sympy` must be cross-referenced by its full path down to the defining file and must not use `~.` abbreviation.
+SYMPY-C208,sympy,Documentation and docstrings,output,exact,0,"Python built-ins, external-library objects, parameters, and other unlinkable names must use double-backtick code markup rather than `:obj:`."
+SYMPY-C210,sympy,Documentation and docstrings,output,exact,0,A custom-text object link must use `:obj:`custom text <object>`` syntax and must not include `~` in the target.
+SYMPY-C213,sympy,Documentation and docstrings,output,exact,0,A contributor must not use Markdown for non-narrative documentation.
+SYMPY-C214,sympy,Documentation and docstrings,output,exact,0,"Docstrings should use reStructuredText syntax, not Markdown."
+SYMPY-C216,sympy,Documentation and docstrings,output,exact,0,"If a docstring contains LaTeX, it must be a raw string."
+SYMPY-C221,sympy,Documentation and docstrings,output,exact,0,"Verbatim code in RST documentation must be enclosed in double backticks, as in ``code``."
+SYMPY-C227,sympy,Documentation and docstrings,output,exact,0,"An RST section heading underline, and optional overline, must use one repeated punctuation character and be at least as long as the heading text."
+SYMPY-C228,sympy,Documentation and docstrings,output,approximate,0,Narrative SymPy documentation must use American spelling and punctuation.
+SYMPY-C234,sympy,Documentation and docstrings,output,approximate,0,SymPy documentation must use gender-neutral `they` instead of `he` or `she`.
+SYMPY-C239,sympy,Specialized changes,output,approximate,0,A necessary backwards-incompatible API change must document how users should update their code.
+SYMPY-C240,sympy,Specialized changes,differential,exact,0,"During the deprecation period, the old API must continue functioning unchanged except for an emitted, suppressible warning."
+SYMPY-C241,sympy,Specialized changes,differential,exact,0,A deprecation warning must be avoidable through a documented user-code migration and must not fire on the correct replacement API.
+SYMPY-C243,sympy,Specialized changes,differential,exact,0,"During the deprecation period, users must have a replacement usage that stops the warning in the same SymPy version."
+SYMPY-C246,sympy,Specialized changes,output,approximate,0,"Before adding a deprecation, the contributor must replace every internal and doctest use of the deprecated behavior with the new API."
+SYMPY-C247,sympy,Specialized changes,output,approximate,0,A `sympy_deprecation_warning(...)` message must state the fully contextualized deprecated API and its replacement.
+SYMPY-C248,sympy,Specialized changes,output,exact,0,A deprecation call or decorator must set `deprecated_since_version` to the version in `sympy/release.py` without `.dev`.
+SYMPY-C249,sympy,Specialized changes,output,exact,0,A deprecation call or decorator must set `active_deprecations_target` to its cross-reference target in `doc/src/explanation/active-deprecations.md`.
+SYMPY-C250,sympy,Specialized changes,output,exact,0,A `sympy_deprecation_warning(...)` call must set `stacklevel` so the console warning points to the user's calling line.
+SYMPY-C252,sympy,Specialized changes,output,exact,0,Every relevant docstring must include a `.. deprecated:: <version>` note for the deprecation.
+SYMPY-C253,sympy,Specialized changes,output,exact,0,Every deprecation must add a section under the applicable version in `doc/src/explanation/active-deprecations.md`.
+SYMPY-C254,sympy,Specialized changes,output,exact,0,The active-deprecation section must define a unique `(…deprecation…)=` or `(…deprecated…)=` cross-reference target before its header.
+SYMPY-C255,sympy,Specialized changes,output,exact,0,A deprecation must add a test whose deprecated call is enclosed by `with warns_deprecated_sympy():` and verifies both the warning and continued behavior.
+SYMPY-C256,sympy,Specialized changes,trajectory,exact,0,"Before submission, the contributor must run `python bin/test` and confirm the deprecation test passes and no other code emits `SymPyDeprecationWarning`."
+SYMPY-C258,sympy,Specialized changes,output,exact,0,"Code must not instantiate or emit `SymPyDeprecationWarning` directly; it must use `sympy_deprecation_warning(...)` or, for a whole function/method, `@deprecated(...)`."
+SYMPY-C259,sympy,Specialized changes,output,exact,0,A `sympy_deprecation_warning(...)` message must be no more than one paragraph and wrap prose to 80 characters except unwrappable code.
+SYMPY-C260,sympy,Specialized changes,output,approximate,0,"A `sympy_deprecation_warning(...)` message must explain migration but must not contain rationale, internal details, version metadata, or an active-deprecations URL already supplied by arguments."
+SYMPY-C261,sympy,Specialized changes,output,approximate,0,A deprecation warning message must be plain text without RST or Markdown markup.
+SYMPY-C262,sympy,Specialized changes,output,exact,0,"If an entire function is deprecated, its `.. deprecated:: <version>` directive must appear immediately below the docstring summary."
+SYMPY-C263,sympy,Specialized changes,output,approximate,0,A docstring `.. deprecated:: <version>` note must be at most one paragraph and state both the deprecated feature and its replacement.
+SYMPY-C264,sympy,Specialized changes,output,approximate,0,"An active-deprecations section must explain what is deprecated, its replacement, and why the change was made."
+SYMPY-C265,sympy,Specialized changes,output,approximate,0,"An active-deprecations entry must use a level-3 heading named for the deprecated item under the corresponding version, normally near the file top."
+SYMPY-C266,sympy,Specialized changes,output,approximate,0,"If a deprecated object is not exported from top-level `sympy`, its active-deprecations entry must identify its defining submodule."
+SYMPY-C268,sympy,Specialized changes,output,exact,0,A deprecation or removal after its deprecation period must include a `BREAKING CHANGE` entry inside the pull request's release-notes block.
+SYMPY-C271,sympy,AI-assisted contribution policy,trajectory,approximate,0,A contributor must be able to explain the code they submit.
+SYMPY-C272,sympy,AI-assisted contribution policy,trajectory,exact,1,A contributor must not use AI to automatically generate the description or explanation of their contribution.
+SYMPY-C273,sympy,AI-assisted contribution policy,trajectory,exact,0,"If a contributor substantially uses AI while developing a patch, the pull request must disclose how AI was used."
+SYMPY-C274,sympy,AI-assisted contribution policy,trajectory,exact,0,"If a patch contains substantially AI-assisted code, the pull request must identify which code is AI generated."
+SYMPY-C276,sympy,AI-assisted contribution policy,trajectory,exact,1,A contributor must not submit code that is fully or mostly AI generated without sufficient human authorship and oversight.
+SYMPY-C278,sympy,AI-assisted contribution policy,trajectory,exact,1,"In developer email, discussions, issues, pull requests, and similar communication, a contributor must not use AI to speak for them except for translation or grammar editing."

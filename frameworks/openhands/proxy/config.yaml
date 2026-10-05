@@ -1,0 +1,31 @@
+# litellm proxy: the host-side half of the OpenHands Vertex route.
+#
+# It exists so that no Google credential has to enter the agent's container. It holds
+# the ADC, speaks Vertex upstream, and offers an OpenAI-compatible endpoint downstream.
+# See ../model-overrides/gemini-3.7-flash.conf for why the container cannot dial Vertex
+# itself.
+#
+# `model_name` is what the container asks for -- it must match the bare id in that
+# file's LITELLM_ID (`openai/gemini-3.7-flash` -> `gemini-3.7-flash` on the wire).
+
+model_list:
+  - model_name: gemini-3.7-flash
+    litellm_params:
+      model: vertex_ai/gemini-3.7-flash
+      # `global`, not a region. `us-central1` returns
+      # `404 Publisher model ... was not found`; only `global` resolves this model.
+      vertex_project: gen-lang-client-0243117553
+      vertex_location: global
+
+general_settings:
+  # The proxy binds 0.0.0.0 (a container cannot reach the host's loopback), so it is
+  # reachable from the LAN and must authenticate. Same value as $OPENHANDS_PROXY_KEY
+  # in the runner.
+  master_key: os.environ/OPENHANDS_PROXY_KEY
+
+litellm_settings:
+  # Gemini 3.x spends reasoning tokens against max_tokens. A low cap yields a
+  # well-formed response with an EMPTY `choices` list rather than an error -- observed
+  # at max_tokens=16, where 12 reasoning tokens left text_tokens=0. Do not add a low
+  # default here; let the agent ask for what it needs.
+  drop_params: true

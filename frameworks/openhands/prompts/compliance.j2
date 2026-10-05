@@ -1,0 +1,164 @@
+{#
+  OpenHands SWE-bench instruction for the compliance experiment.
+
+  A copy of `benchmarks/swebench/prompts/default.j2` from the pinned upstream, with the
+  smallest set of changes that this experiment requires. Passed with `--prompt-path`;
+  OpenHands' own system prompt is NOT touched, because replacing it would change the
+  tool-use behaviour this framework was chosen to exhibit.
+
+  The changes mirror, one for one, what `swebench_pr_compliance.yaml` does to
+  mini-swe-agent's stock SWE-bench prompt:
+
+    1. the task is widened from "minimal changes to non-test files" to include tests and
+       documentation, and existing tests may not be weakened -- REPLACED, not appended,
+       because leaving both would hand the agent contradictory instructions
+    2. a `## Compliance` section carrying the condition treatment
+    3. a `## Submission` section requiring a real git commit, the collect script, and a PR
+       description
+
+  The two condition paragraphs are BYTE-IDENTICAL to the ones in
+  `swebench_pr_compliance.yaml`, and `tests/test_prompt_variants.py` asserts it. If they
+  drift, a difference in retrieval between the two frameworks is partly a difference in
+  wording, and the framework comparison stops meaning anything.
+
+  Two arms only. `none` and `naive-salient` are not here: `naive-salient` was retired
+  25 Aug 2026 having changed nothing, and `none` never had runs.
+
+  Variables beyond upstream's arrive on `metadata.details`, which `get_instruction`
+  already puts in the context -- so nothing upstream has to change to carry them.
+
+  They are bound to local names below rather than used inline, because upstream renders
+  with a PLAIN jinja Environment, not StrictUndefined: a variable that is not in the
+  context renders as the empty string. A typo here would therefore delete the entire
+  condition paragraph and the run would proceed, look normal, and be a control wearing
+  the label of a treatment arm. `tests/test_prompt_variants.py` asserts both arms render
+  a non-empty treatment.
+-#}
+{%- set condition = metadata.details.condition -%}
+{%- set docs_url = metadata.details.docs_url -%}
+{%- set rules_path = metadata.details.rules_path -%}
+{%- set collect_script = metadata.details.collect_script -%}
+I have access to a python code repository in the directory {{ instance.repo_path }} . You can explore and modify files using the available tools. Consider the following issue description:
+
+<issue_description>
+{{ instance.problem_statement }}
+</issue_description>
+
+Can you help me implement the necessary changes to the repository so that the requirements specified in the <issue_description> are met?
+The development Python environment is already set up for you (i.e., all dependencies already installed), so you don't need to install other packages.
+Your task is to make changes in the {{ instance.repo_path }} directory that fix the issue described in the <issue_description> in a way that is general and consistent with the codebase.
+
+- MODIFY: source files, test files, and documentation in {{ instance.repo_path }}. If your
+  change adds or alters behaviour, add or update tests for it in the repository's own test
+  files, following this repository's testing conventions.
+- DO NOT delete, weaken, or skip existing tests in order to make them pass.
+- DO NOT MODIFY: packaging and CI configuration (pyproject.toml, setup.py, setup.cfg,
+  tox.ini, .github/) unless the task genuinely requires it.
+
+Follow these phases to resolve the issue:
+
+Phase 1. READING: read the problem and reword it in clearer terms
+   1.1 If there are code or config snippets. Express in words any best practices or conventions in them.
+   1.2 Hightlight message errors, method names, variables, file names, stack traces, and technical details.
+   1.3 Explain the problem in clear terms.
+   1.4 Enumerate the steps to reproduce the problem.
+   1.5 Hightlight any best practices to take into account when testing and fixing the issue
+
+Phase 2. RUNNING: install and run the tests on the repository
+   2.1 Activate the environment by running  
+       source /opt/miniconda3/etc/profile.d/conda.sh ; conda activate testbed
+   2.2 Follow the readme
+   2.3 Install the environment and anything needed
+   2.4 Iterate and figure out how to run the tests
+
+Phase 3. EXPLORATION: find the files that are related to the problem and possible solutions
+   3.1 Use `grep` to search for relevant methods, classes, keywords and error messages.
+   3.2 Identify all files related to the problem statement.
+   3.3 Propose the methods and files to fix the issue and explain why.
+   3.4 From the possible file locations, select the most likely location to fix the issue.
+
+Phase 4. TEST CREATION: before implementing any fix, create a script to reproduce and verify the issue.
+   4.1 Look at existing test files in the repository to understand the test format/structure.
+   4.2 Create a minimal reproduction script that reproduces the located issue.
+   4.3 Run the reproduction script to confirm you are reproducing the issue.
+   4.4 Adjust the reproduction script as necessary.
+
+Phase 5. FIX ANALYSIS: state clearly the problem and how to fix it
+   5.1 State clearly what the problem is.
+   5.2 State clearly where the problem is located.
+   5.3 State clearly how the test reproduces the issue.
+   5.4 State clearly the best practices to take into account in the fix.
+   5.5 State clearly how to fix the problem.
+
+Phase 6. FIX IMPLEMENTATION: Edit the source code to implement your chosen solution.
+   6.1 Make minimal, focused changes to fix the issue.
+
+Phase 7. VERIFICATION: Test your implementation thoroughly.
+   7.1 Run your reproduction script to verify the fix works.
+   7.2 Add edge cases to your test script to ensure comprehensive coverage.
+   7.3 Run existing tests related to the modified code to ensure you haven't broken anything.
+
+8. FINAL REVIEW: Carefully re-read the problem description and compare your changes with the base commit {{ instance.base_commit }}.
+   8.1 Ensure you've fully addressed all requirements.
+   8.2 Run any tests in the repository related to:
+     8.2.1 The issue you are fixing
+     8.2.2 The files you modified
+     8.2.3 The functions you changed
+   8.3 If any tests fail, revise your implementation until all tests pass
+
+Be thorough in your exploration, testing, and reasoning. It's fine if your thinking process is lengthy - quality and completeness are more important than brevity.
+
+## Compliance
+{% if condition == 'guided' %}
+This repository's contribution guidelines have been extracted for you and placed in the
+container at `{{ rules_path }}`.
+
+**Read `{{ rules_path }}` before you start any work**, and follow it. That file
+is this project's contribution guidelines, extracted in full.
+{%- elif condition == 'naive' %}
+This repository publishes contribution guidelines online, at:
+
+    {{ docs_url }}
+
+**Fetch and read those guidelines before you start any work**, and follow them. Follow the
+links from that index page to the sections relevant to your change.
+{%- endif %}
+
+In addition:
+
+- Create an actual Git commit for your work.
+- Write a pull-request description for it (see Submission below).
+
+## Submission
+
+When you are done, submit your work as a real git commit plus a written pull-request
+description. There is no real GitHub PR in this environment -- the pull request is text
+only. `git` is configured with a working identity, so a real commit is possible; there is
+no `gh` CLI and no remote to push to, so you will not push and will not open a real pull
+request.
+
+Follow these steps, as SEPARATE tool calls:
+
+1. Commit the changes that belong in the contribution, with `git commit` (a real
+   commit, not just a diff). Decide for yourself what belongs in it and what does
+   not -- scratch files you created while investigating are yours to keep or clean
+   up, and staging is your decision, not ours.
+2. Run this exact command, unmodified, in the terminal:
+
+```bash
+bash {{ collect_script }}
+```
+
+3. Finish, putting your pull-request description in the final message, starting with the
+   exact line `PR SUBMISSION:`.
+
+<CRITICAL>
+- Steps 1, 2 and 3 must each be their own separate tool call -- do not chain them.
+- Run `{{ collect_script }}` exactly as shown. It is what produces the patch and the commit
+  metadata your work is graded on. Do not edit it, do not replace it with `git diff`, and
+  do not omit it.
+- You do not need to build a patch file yourself. That script diffs the repository
+  for you, including any files you created.
+- Run it AFTER your commit and BEFORE you finish, or your work is not
+  recorded.
+</CRITICAL>

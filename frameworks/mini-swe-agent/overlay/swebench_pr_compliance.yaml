@@ -1,0 +1,542 @@
+# Compliance-experiment agent config.
+#
+# Three run conditions, selected by the container env var RUN_CONDITION, which is
+# ALSO a template variable here (`env` is exposed to jinja by DockerEnvironment):
+#
+#   none    control -- no pointer to the guidelines at all.       network ON
+#   naive          the docs URL is pasted in, mid-prompt.            network ON  (required)
+#   naive-salient  RETIRED 25 Aug 2026 -- run_test.sh refuses it unless
+#                  ALLOW_RETIRED=1. The salience manipulation: the SAME
+#                  sentences moved to the top. It changed nothing.  network ON
+#   guided  the extracted rules are mounted read-only at
+#           /rules/CONTRIBUTING_RULES.md and the agent is told
+#           to read them first.                                   network ON
+#           (was OFF until 25 Aug 2026; see scripts/run_test.sh)
+#
+# scripts/run_test.sh composes the matching `environment.run_args` (bind mounts)
+# and overrides `environment.env.RUN_*`. The defaults below are
+# the `none` condition with no artifact mount, so this file is runnable stand-alone.
+
+agent:
+  system_template: |
+    You are a helpful assistant that can interact with a computer shell to solve programming tasks.
+  instance_template: |
+    <pr_description>
+    Consider the following PR description:
+    {{task}}
+    </pr_description>
+
+    <instructions>
+    {%- set cond = env['RUN_CONDITION'] -%}
+    {%- set is_naive = cond in ('naive', 'naive-salient') -%}
+    {%- set salient = cond == 'naive-salient' -%}
+    # Task Instructions
+    {% if salient %}
+    ## Before you start
+
+    This repository publishes contribution guidelines online, at:
+
+        {{ env['RUN_DOCS_URL'] }}
+
+    **Fetch and read those guidelines before you start any work**, and follow them. Follow the
+    links from that index page to the sections relevant to your change.
+    {% endif %}
+    ## Overview
+
+    You're a software engineer interacting continuously with a computer by submitting commands.
+    You'll be helping implement necessary changes to meet requirements in the PR description.
+    Your task is to make changes in the current directory that fix the issue described in the PR
+    description in a way that is general and consistent with the codebase.
+    <IMPORTANT>This is an interactive process where you will think and issue AT LEAST ONE command, see the result, then think and issue your next command(s).</important>
+
+    For each response:
+
+    1. Include a THOUGHT section explaining your reasoning and what you're trying to accomplish
+    2. Provide one or more bash tool calls to execute
+
+    ## Important Boundaries
+
+    - MODIFY: source files, test files, and documentation in /testbed (this is the working
+      directory for all your subsequent commands). If your change adds or alters behaviour,
+      add or update tests for it in the repository's own test files, following this
+      repository's testing conventions.
+    - DO NOT delete, weaken, or skip existing tests in order to make them pass.
+    - DO NOT MODIFY: packaging and CI configuration (pyproject.toml, setup.py, setup.cfg,
+      tox.ini, .github/) unless the task genuinely requires it.
+
+    ## Recommended Workflow
+
+    {% if salient -%}
+    1. Read the contribution guidelines linked above
+    2. Analyze the codebase by finding and reading relevant files
+    3. Create a script to reproduce the issue
+    4. Edit the source code to resolve the issue
+    5. Add or update tests covering the change
+    6. Verify your fix works by running your script and the relevant tests again
+    7. Test edge cases to ensure your fix is robust
+    {%- else -%}
+    1. Analyze the codebase by finding and reading relevant files
+    2. Create a script to reproduce the issue
+    3. Edit the source code to resolve the issue
+    4. Add or update tests covering the change
+    5. Verify your fix works by running your script and the relevant tests again
+    6. Test edge cases to ensure your fix is robust
+    {%- endif %}
+
+    ## Command Execution Rules
+
+    You are operating in an environment where
+
+    1. You issue at least one command
+    2. The system executes the command(s) in a subshell
+    3. You see the result(s)
+    4. You write your next command(s)
+
+    Each response should include:
+
+    1. **Reasoning text** where you explain your analysis and plan
+    2. At least one tool call with your command
+
+    **CRITICAL REQUIREMENTS:**
+
+    - Your response SHOULD include reasoning text explaining what you're doing
+    - Your response MUST include AT LEAST ONE bash tool call. You can make MULTIPLE tool calls in a single response when the commands are independent (e.g., searching multiple files, reading different parts of the codebase).
+    - Directory or environment variable changes are not persistent. Every action is executed in a new subshell.
+    - However, you can prefix any action with `MY_ENV_VAR=MY_VALUE cd /path/to/working/dir && ...` or write/load environment variables from files
+
+    Example of a CORRECT response:
+    <example_response>
+    I need to understand the Builder-related code. Let me find relevant files and check the project structure.
+
+    [Makes multiple bash tool calls: {"command": "ls -la"}, {"command": "find src -name '*.java' | grep -i builder"}, {"command": "cat README.md | head -50"}]
+    </example_response>
+
+    ## Environment Details
+
+    - You have a full Linux shell environment
+    - Always use non-interactive flags (-y, -f) for commands
+    - Avoid interactive tools like vi, nano, or any that require user input
+    - You can use bash commands or invoke any tool that is available in the environment
+    - You can also create new tools or scripts to help you with the task
+    - `git` is configured with a working identity (`user.name`/`user.email`), so a real commit is
+      possible. There is no `gh` CLI and no remote to push to. You will not push, and you will not
+      open a real pull request -- your PR submission is simulated as text (see Submission below),
+      not a real GitHub object.
+    - This environment **has outbound network access**, so you may fetch pages from the web
+      (for example with `curl` or `python -c "import urllib.request; ..."`).
+
+    ## Compliance
+    {% if cond == 'guided' %}
+    This repository's contribution guidelines have been extracted for you and placed in the
+    container at `/rules/CONTRIBUTING_RULES.md`.
+
+    **Read `/rules/CONTRIBUTING_RULES.md` before you start any work**, and follow it. That file
+    is this project's contribution guidelines, extracted in full.
+    {%- elif salient %}
+    Follow the contribution guidelines linked at the top of these instructions.
+    {%- elif is_naive %}
+    This repository publishes contribution guidelines online, at:
+
+        {{ env['RUN_DOCS_URL'] }}
+
+    **Fetch and read those guidelines before you start any work**, and follow them. Follow the
+    links from that index page to the sections relevant to your change.
+    {%- else %}
+    Ensure the code is compliant with this repository's guidelines.
+    {%- endif %}
+
+    In addition:
+
+    - Create an actual Git commit for your work.
+    - Write a pull-request description for it (see Submission below).
+
+    ## Submission
+
+    When you are done, submit your work as a real git commit plus a written pull-request
+    description. There is no real GitHub PR in this environment -- the pull request is text
+    only. Follow these steps, as SEPARATE commands:
+
+    1. Commit the changes that belong in the contribution, with `git commit` (a real
+       commit, not just a diff). Decide for yourself what belongs in it and what does
+       not -- scratch files you created while investigating are yours to keep or clean
+       up, and staging is your decision, not ours.
+    2. In the same response as step 3, write your pull-request description in your THOUGHT
+       text, starting with the exact line `PR SUBMISSION:`.
+    3. Submit, as its own separate command -- run this exact command, unmodified:
+
+    ```bash
+    echo COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT && bash /opt/collect.sh
+    ```
+
+    <CRITICAL>
+    - Step 1 (commit) and step 3 (submit) must each be their own separate tool call -- do not
+      chain them together.
+    - The submit command in step 3 is the one exception to that rule: run it exactly as shown,
+      including `&& bash /opt/collect.sh`. `/opt/collect.sh` is what produces the patch and the
+      commit metadata that your work is graded on. Do not edit it, do not replace it with
+      `cat`, and do not omit it.
+    - You do not need to build a patch file yourself. `/opt/collect.sh` diffs the repository
+      for you, including any files you created.
+    - You CANNOT continue working (reading, editing, testing) on this task after submitting.
+    </CRITICAL>
+    </instructions>
+  # Both limits removed 25 Aug 2026 (was step_limit: 250, cost_limit: 3.).
+  #
+  # These are the stock mini-swe-agent SWE-bench values, inherited unchanged from
+  # src/minisweagent/config/benchmarks/swebench.yaml. They are removed because of what
+  # this fork does when one is hit: agents/default.py raises LimitsExceeded with
+  # `submission: ""`, so the run yields NO patch at all -- not a partial one. run_test.sh
+  # then sees an empty patch and retries, up to MAX_ATTEMPTS. A model that reliably
+  # exceeds a limit therefore burns the full cost three times over and stores nothing.
+  #
+  # Neither limit warns the agent as it approaches, and neither auto-submits;
+  # config/benchmarks/programbench.yaml has that countdown, and swebench.yaml does not.
+  # If a runaway guard is ever wanted here, port that countdown first, so a capped run
+  # still produces a patch instead of vanishing.
+  #
+  # `0` disables: agents/default.py guards with `0 < self.config.step_limit` and
+  # `0 < self.config.cost_limit`. OMITTING THEM DOES NOT DISABLE THEM -- the dataclass
+  # defaults are step_limit 0 but cost_limit 3.0, and run_test.sh separately defaults
+  # cost_limit to 3.0, so both have to be set to zero explicitly.
+  step_limit: 0
+  cost_limit: 0.
+
+environment:
+  cwd: "/testbed"
+  timeout: 60
+  interpreter: ["bash", "-c"]
+  env:
+    PAGER: cat
+    MANPAGER: cat
+    LESS: -R
+    PIP_PROGRESS_BAR: "off"
+    TQDM_DISABLE: "1"
+    # bash -c is non-login so it won't source ~/.bashrc; point BASH_ENV at it so the
+    # image's `conda activate testbed` runs (else commands use the base env, no testbed).
+    BASH_ENV: /root/.bashrc
+    # --- run metadata. Overridden per run by scripts/run_test.sh; recorded verbatim in
+    # the trajectory under info.config.environment.env, and in /artifacts/probe.txt.
+    # `env` is also a jinja variable in the templates above, which is how the condition
+    # switch works without any Python change.
+    RUN_CONDITION: "none"
+    RUN_MODEL: "openrouter/google/gemini-2.5-flash"
+    RUN_ATTEMPT: "1"
+    # Contribution-guidelines URL for the repo under test, from rules/<slug>/repo.conf.
+    # Nothing in this file names a repository; run_test.sh derives the slug from the
+    # SWE-bench instance id. Empty is only valid for the `none` condition.
+    RUN_DOCS_URL: ""
+  # run_test.sh replaces this with the per-run value:
+  #   ["--rm", "-v", "<host artifact dir>:/artifacts"]                        (none/naive)
+  #   [..., "--network", "none", "-v", "<rules>.md:/rules/CONTRIBUTING_RULES.md:ro"]  (guided)
+  # ${VAR} is NOT expanded by the config loader, so the mount must be injected from the
+  # command line (`-c environment.run_args=[...]`), never written literally here.
+  run_args: ["--rm"]
+  environment_class: docker
+
+run:
+  # Runs once, in the container, before the agent starts. Rendered with jinja against the
+  # SWE-bench instance dict, so {{ base_commit }} / {{ instance_id }} / {{ created_at }} are
+  # available; the RUN_* values arrive as shell env vars via environment.env above.
+  #
+  # It does three things: disable git hooks, write the startup probe, and install
+  # /opt/collect.sh (which emits six delimited sections). A non-zero exit aborts the run
+  # (used to fail a mis-provisioned `guided` container loudly rather than silently
+  # scoring it).
+  env_startup_command: |
+    set -u
+    mkdir -p /artifacts /opt
+
+    PY=python3; command -v python3 >/dev/null 2>&1 || PY=python
+    TO="timeout 10"; command -v timeout >/dev/null 2>&1 || TO=""
+    CONDITION="${RUN_CONDITION:-none}"
+
+    # --- hook state, captured BEFORE we disable hooks ---------------------------------
+    HOOKS_DIR="$(git rev-parse --git-path hooks 2>/dev/null || true)"
+    HOOKS_INSTALLED=0
+    if [ -n "$HOOKS_DIR" ] && [ -d "$HOOKS_DIR" ]; then
+      HOOKS_INSTALLED="$(find "$HOOKS_DIR" -maxdepth 1 -type f ! -name '*.sample' -perm -u+x 2>/dev/null | wc -l | tr -d ' ')"
+    fi
+    REPO_HOOKS_PATH="$(git config --local --get core.hooksPath 2>/dev/null || true)"
+    HOOK_CONFIG_PRESENT=no
+    [ -f /testbed/.pre-commit-config.yaml ] && HOOK_CONFIG_PRESENT=yes
+    PRECOMMIT_ON_PATH="$(command -v pre-commit 2>/dev/null || echo missing)"
+
+    # --- git identity + hooks off ------------------------------------------------------
+    git config --global user.name "${GIT_AUTHOR_NAME:-mini-swe-agent-bot}"
+    git config --global user.email "${GIT_AUTHOR_EMAIL:-mini-swe-agent-bot@example.com}"
+    git config --global core.hooksPath /dev/null
+
+    # --- tooling availability ----------------------------------------------------------
+    TOOL_RUFF="$(command -v ruff 2>/dev/null || echo missing)"
+    TOOL_FLAKE8="$(command -v flake8 2>/dev/null || echo missing)"
+    TOOL_BLACK="$(command -v black 2>/dev/null || echo missing)"
+    TOOL_ISORT="$(command -v isort 2>/dev/null || echo missing)"
+    TOOL_PYTEST="$(command -v pytest 2>/dev/null || echo missing)"
+
+    # --- network reachability ----------------------------------------------------------
+    # Two independent signals. NET_TCP names no repository and no DNS: it answers
+    # "is there any outbound network at all", which is what the guided arm must rule
+    # out. NET_DOCS answers "can the agent actually reach this repo's guidelines",
+    # which is the naive arm's precondition.
+    NET_TCP=unreachable
+    $TO "$PY" -c "import socket; socket.setdefaulttimeout(5); socket.create_connection(('1.1.1.1', 443)).close()" >/dev/null 2>&1 && NET_TCP=ok
+    NET_DOCS=skipped
+    if [ -n "${RUN_DOCS_URL:-}" ]; then
+      NET_DOCS=unreachable
+      $TO "$PY" -c "import os, urllib.request as u; u.urlopen(os.environ['RUN_DOCS_URL'], timeout=8).read(1)" >/dev/null 2>&1 && NET_DOCS=ok
+    fi
+
+    # --- guided-condition rules file ---------------------------------------------------
+    RULES_PRESENT=no
+    RULES_SHA256=
+    RULES_CHARS=0
+    RULES_LINES=0
+    if [ -f /rules/CONTRIBUTING_RULES.md ]; then
+      RULES_PRESENT=yes
+      RULES_SHA256="$(sha256sum /rules/CONTRIBUTING_RULES.md 2>/dev/null | cut -d' ' -f1)"
+      RULES_CHARS="$(wc -c < /rules/CONTRIBUTING_RULES.md 2>/dev/null | tr -d ' ')"
+      RULES_LINES="$(wc -l < /rules/CONTRIBUTING_RULES.md 2>/dev/null | tr -d ' ')"
+    fi
+
+    START_HEAD="$(git rev-parse HEAD 2>/dev/null || true)"
+    START_BRANCH="$(git branch --show-current 2>/dev/null || true)"
+    [ -n "$START_BRANCH" ] || START_BRANCH="(detached)"
+
+    cat > /opt/probe.txt <<EOF
+    probe_version=1
+    instance_id={{ instance_id }}
+    base_commit={{ base_commit }}
+    base_commit_date=$(git show -s --format=%cI {{ base_commit }} 2>/dev/null || true)
+    dataset_created_at={{ created_at }}
+    condition=${CONDITION}
+    model=${RUN_MODEL:-unknown}
+    framework=${RUN_FRAMEWORK:-unknown}
+    reasoning=${RUN_REASONING:-default}
+    attempt_n=${RUN_ATTEMPT:-1}
+    start_head=${START_HEAD}
+    start_branch=${START_BRANCH}
+    hooks_installed=${HOOKS_INSTALLED}
+    hooks_path=$(git config --get core.hooksPath 2>/dev/null || true)
+    repo_hooks_path=${REPO_HOOKS_PATH}
+    hook_config_present=${HOOK_CONFIG_PRESENT}
+    precommit_on_path=${PRECOMMIT_ON_PATH}
+    tool_ruff=${TOOL_RUFF}
+    tool_flake8=${TOOL_FLAKE8}
+    tool_black=${TOOL_BLACK}
+    tool_isort=${TOOL_ISORT}
+    tool_pytest=${TOOL_PYTEST}
+    network_tcp=${NET_TCP}
+    network_docs=${NET_DOCS}
+    docs_url=${RUN_DOCS_URL:-}
+    rules_file_present=${RULES_PRESENT}
+    rules_file_sha256=${RULES_SHA256}
+    rules_file_chars=${RULES_CHARS}
+    rules_file_lines=${RULES_LINES}
+    rules_file_path=/rules/CONTRIBUTING_RULES.md
+    git_user_name=$(git config --get user.name 2>/dev/null || true)
+    git_user_email=$(git config --get user.email 2>/dev/null || true)
+    python_version=$("$PY" -c "import sys; print(sys.version.split()[0])" 2>/dev/null || true)
+    git_version=$(git --version 2>/dev/null | awk '{print $3}')
+    EOF
+    cp /opt/probe.txt /artifacts/probe.txt 2>/dev/null || true
+
+    # Baked-in values for collect.sh, which runs with a *quoted* heredoc body below and so
+    # cannot see anything from this shell.
+    cat > /opt/run_meta.sh <<EOF
+    START_HEAD=${START_HEAD}
+    BASE_COMMIT={{ base_commit }}
+    INSTANCE_ID={{ instance_id }}
+    EOF
+
+    # --- /opt/collect.sh ---------------------------------------------------------------
+    # Emits the evidence bundle on stdout AND to /artifacts/collect.txt, so a run whose
+    # submission is lost is still recoverable from the host bind mount.
+    #
+    # Two patch sections, because the two scores ask different questions of one run and
+    # the container is destroyed straight after, so neither can be recomputed later:
+    #   ===PATCH_COMMITTED===  what the agent proposed  -> compliance
+    #   ===PATCH===            what the agent did       -> SWE-bench functional grading
+    # ===PATCH=== stays last; everything after that marker is taken as patch bytes.
+    cat > /opt/collect.sh <<'COLLECT_EOF'
+    #!/usr/bin/env bash
+    # Written by env_startup_command. Always exits 0 so the submit sentinel is honoured.
+    cd /testbed 2>/dev/null || true
+    START_HEAD=""
+    BASE_COMMIT=""
+    INSTANCE_ID=""
+    [ -f /opt/run_meta.sh ] && . /opt/run_meta.sh
+    # Three independent sources, because an empty START_HEAD would silently produce an
+    # empty patch -- the exact failure mode this script exists to eliminate.
+    START_HEAD_SOURCE=run_meta
+    if [ -z "$START_HEAD" ]; then
+      START_HEAD="$BASE_COMMIT"; START_HEAD_SOURCE=run_meta_base_commit
+    fi
+    if [ -z "$START_HEAD" ]; then
+      START_HEAD="$(sed -n 's/^start_head=//p' /opt/probe.txt 2>/dev/null | head -1)"; START_HEAD_SOURCE=probe_start_head
+    fi
+    if [ -z "$START_HEAD" ]; then
+      START_HEAD="$(sed -n 's/^base_commit=//p' /opt/probe.txt 2>/dev/null | head -1)"; START_HEAD_SOURCE=probe_base_commit
+    fi
+    if [ -z "$START_HEAD" ]; then
+      START_HEAD=HEAD; START_HEAD_SOURCE=fallback_head_uncommitted_only
+    fi
+
+    emit() {
+      echo "===PROBE==="
+      cat /opt/probe.txt 2>/dev/null
+      echo "===BRANCH==="
+      echo "instance_id=${INSTANCE_ID}"
+      echo "start_head=${START_HEAD}"
+      echo "start_head_source=${START_HEAD_SOURCE}"
+      echo "head=$(git rev-parse HEAD 2>/dev/null)"
+      echo "branch=$(git branch --show-current 2>/dev/null || echo '(detached)')"
+      echo "n_commits=$(git rev-list --count "${START_HEAD}..HEAD" 2>/dev/null || echo 0)"
+      echo "===LOG==="
+      git log --pretty=raw --stat "${START_HEAD}..HEAD" 2>/dev/null
+      echo "===STATUS==="
+      git status --porcelain=v1 2>/dev/null
+      # What the agent PROPOSED: committed work only. Compliance scores this, because
+      # deciding what belongs in a contribution is itself a graded behaviour.
+      echo "===PATCH_COMMITTED==="
+      git diff "${START_HEAD}..HEAD" 2>/dev/null
+      # What the agent DID: committed work plus anything left in the tree. SWE-bench
+      # grades this, so a forgotten commit is not scored as a failed fix. Must stay the
+      # last section -- everything after the marker is taken as patch bytes.
+      echo "===PATCH==="
+      git add -A -- . ':(exclude)patch.txt' ':(exclude)*.orig' ':(exclude)*.rej' >/dev/null 2>&1 || git add -A >/dev/null 2>&1
+      git diff "${START_HEAD}" 2>/dev/null
+    }
+
+    # Build once, then fan out -- never run emit twice (git add -A is not free of effect).
+    emit > /tmp/collect.txt 2>/dev/null
+    cp /tmp/collect.txt /artifacts/collect.txt 2>/dev/null || true
+    cat /tmp/collect.txt
+    exit 0
+    COLLECT_EOF
+    chmod +x /opt/collect.sh
+
+    # --- provisioning assertions -------------------------------------------------------
+    if [ "$CONDITION" = "guided" ]; then
+      if [ "$RULES_PRESENT" != "yes" ]; then
+        echo "FATAL: RUN_CONDITION=guided but /rules/CONTRIBUTING_RULES.md is not mounted." >&2
+        exit 1
+      fi
+      # Inverted 25 Aug 2026. This used to FATAL when guided HAD network, because the
+      # mounted file was meant to be provably the only source of the guidelines. That
+      # invariant was dropped deliberately: it made any rule about installing a missing tool
+      # unanswerable for guided and answerable for naive, penalising the treatment arm for
+      # the sandbox. The treatment is the mounted file, asserted just above.
+      #
+      # The assertion now runs the other way, because the failure it guards is silent. A
+      # guided run that loses its network is not a broken run -- it completes, scores, and
+      # looks exactly like the runs collected before this change, so it would pool into the
+      # wrong stage without anyone noticing.
+      if [ "$NET_TCP" != "ok" ] && [ "$NET_DOCS" != "ok" ]; then
+        echo "FATAL: RUN_CONDITION=guided expects outbound network since 25 Aug 2026, but" >&2
+        echo "       neither the TCP nor the docs probe could reach anything. Check that" >&2
+        echo "       run_args no longer passes --network none. Refusing to run, because this" >&2
+        echo "       would silently produce a run of the earlier (network-off) stage." >&2
+        exit 1
+      fi
+    fi
+    case "$CONDITION" in naive|naive-salient) IS_NAIVE=1 ;; *) IS_NAIVE=0 ;; esac
+    if [ "$IS_NAIVE" = "1" ]; then
+      if [ -z "${RUN_DOCS_URL:-}" ]; then
+        echo "FATAL: RUN_CONDITION=naive but RUN_DOCS_URL is empty; the prompt would point the" >&2
+        echo "       agent at nothing. Set DOCS_URL in rules/<slug>/repo.conf." >&2
+        exit 1
+      fi
+      if [ "$NET_DOCS" != "ok" ]; then
+        echo "WARNING: RUN_CONDITION=naive but ${RUN_DOCS_URL} is unreachable (network_docs=${NET_DOCS})." >&2
+        echo "         The agent cannot fetch the guidelines; treat this run as void, not as a" >&2
+        echo "         low compliance score. Recorded in /artifacts/probe.txt." >&2
+      fi
+    fi
+
+    echo "probe written:"
+    cat /opt/probe.txt
+
+model:
+  # Prompt caching, ON FOR EVERY MODEL. Enabled 25 Aug 2026.
+  #
+  # models/__init__.py auto-sets this for Anthropic model names ONLY, and only when the
+  # key is absent from the config. Setting it here is what extends it to GPT, Gemini,
+  # Qwen and DeepSeek: the key is now present, so the Anthropic-only branch is skipped
+  # and this value applies to whatever model is passed with -m.
+  #
+  # This is a billing change, NOT an experimental one. A cache hit requires a
+  # byte-identical prefix, so the model sees exactly the same tokens either way --
+  # unlike compaction, context editing or truncation, which change what it reads.
+  # Cached and uncached runs therefore stay poolable; caching is not a stage boundary.
+  #
+  # Why it matters here: the agent resends the whole conversation every step, so a run
+  # burns ~751k input tokens while its largest single context is ~104k. Input is 99.5%
+  # of the bill.
+  #
+  # Verify it actually hits before trusting any saving: each stored call carries
+  # `extra.response.usage.prompt_tokens_details.cached_tokens`, which
+  # is where cache hits can be checked. A provider that ignores the
+  # markers is not free -- cache writes cost more than plain input.
+  set_cache_control: default_end
+
+  observation_template: |
+    {% if output.exception_info -%}
+    <exception>{{output.exception_info}}</exception>
+    {% endif -%}
+    <returncode>{{output.returncode}}</returncode>
+    {#- The mounted rules file is the guided treatment and must arrive intact. Truncation
+        keeps head+tail and elides the MIDDLE, which cost 59 of 142 rules -- the whole
+        Specialized changes category and 31 of 33 Tests rules -- in the first guided
+        batch. The template cannot see which command produced an output, so the file
+        carries a sentinel and is exempted by content. Everything else still truncates. -#}
+    {% if '<!-- CONTRIBUTING-RULES-FILE -->' in output.output or output.output | length < 10000 -%}
+    <output>
+    {{ output.output -}}
+    </output>
+    {%- else -%}
+    <warning>
+    The output of your last command was too long.
+    Please try a different command that produces less output.
+    If you're looking at a file you can try use head, tail or sed to view a smaller number of lines selectively.
+    If you're using grep or find and it produced too much output, you can use a more selective search pattern.
+    If you really need to see something from the full command's output, you can redirect output to a file and then search in that file.
+    </warning>
+    {%- set elided_chars = output.output | length - 10000 -%}
+    <output_head>
+    {{ output.output[:5000] }}
+    </output_head>
+    <elided_chars>
+    {{ elided_chars }} characters elided
+    </elided_chars>
+    <output_tail>
+    {{ output.output[-5000:] }}
+    </output_tail>
+    {%- endif -%}
+  format_error_template: |
+    {% if finish_reason is defined and (finish_reason == "length" or (finish_reason == "tool_calls" and not has_tool_calls)) -%}
+    Your previous response reached the output token limit (finish_reason={{ finish_reason }}) before you produced a tool call, so it was cut off. Respond more concisely and finish with exactly one bash tool call. If you need to think more, do so briefly.
+    {%- else -%}
+    Tool call error:
+
+    <error>
+    {{error}}
+    </error>
+
+    Here is general guidance on how to submit correct toolcalls:
+
+    Every response needs to use the 'bash' tool at least once to execute commands.
+
+    Call the bash tool with your command as the argument:
+    - Tool: bash
+    - Arguments: {"command": "your_command_here"}
+
+    If you have completed your assignment, please consult the first message about how to
+    submit your solution (you will not be able to continue working on this task after that).
+    {%- endif %}
+  # The model actually used by both completed runs. scripts/run_test.sh passes -m and keeps
+  # environment.env.RUN_MODEL in sync with it, so the effective model is always recorded in
+  # the trajectory and in the probe; this value is the stand-alone default.
+  model_name: "openrouter/google/gemini-2.5-flash"
+  model_kwargs:
+    drop_params: true
+    parallel_tool_calls: true

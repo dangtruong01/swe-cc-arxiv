@@ -1,0 +1,29 @@
+diff --git a/benchmarks/utils/image_utils.py b/benchmarks/utils/image_utils.py
+index 467074c..973e442 100644
+--- a/benchmarks/utils/image_utils.py
++++ b/benchmarks/utils/image_utils.py
+@@ -63,7 +63,23 @@ def _ghcr_token(repo: str, username: str | None, pat: str | None) -> str | None:
+         headers["Authorization"] = (
+             "Basic " + base64.b64encode(f"{username}:{pat}".encode()).decode()
+         )
+-    r = requests.get(url, headers=headers, timeout=10)
++    # LOCAL PATCH (10 Sep 2026, SWE-CC). A network failure here must not be
++    # fatal. `remote_image_exists` below already swallows RequestException and returns
++    # False, which correctly falls through to building locally -- but this token fetch
++    # runs BEFORE it, unguarded, so a DNS blip propagated out and killed the whole cell
++    # before the agent had run. Three django cells were lost that way in a ~30 s window on
++    # 9 Sep, and E6 attributes sympy's four ghcr.io losses to a retry pass rebuilding 26
++    # images at once (experiment-e6-openhands-sympy-pilot.md).
++    #
++    # Returning None is not a new code path: it is exactly what this function already
++    # returns when there is no token, and the caller then does an anonymous lookup.
++    # The check has never once succeeded for us -- every build reports status='built',
++    # because no prebuilt image exists for our SDK-sha x swebench-base combination -- so
++    # this trades nothing for removing a hard failure mode.
++    try:
++        r = requests.get(url, headers=headers, timeout=10)
++    except requests.RequestException:
++        return None
+     if r.ok:
+         return r.json().get("token")
+     return None

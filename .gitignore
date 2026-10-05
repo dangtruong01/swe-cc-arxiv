@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.cache/
+# created by frameworks/setup.sh
+mini-swe-agent-run/
+openhands-run/
+# created by the sweeps and scripts
+runs/
+tables/
+figures/
+*.egg-info/
+/results/
+# editor/Office lock files
+~$*
+.~lock.*

@@ -1,0 +1,46 @@
+diff --git a/openhands-tools/openhands/tools/file_editor/utils/config.py b/openhands-tools/openhands/tools/file_editor/utils/config.py
+index bfe0204..162687b 100644
+--- a/openhands-tools/openhands/tools/file_editor/utils/config.py
++++ b/openhands-tools/openhands/tools/file_editor/utils/config.py
+@@ -1,2 +1,16 @@
+-MAX_RESPONSE_LEN_CHAR: int = 16000
++# DEVIATION FROM THE PINNED SDK -- deliberate, 2 Sep 2026. Upstream value: 16000.
++#
++# The SymPy guided treatment is 17,561 chars (142 rules). At 16000 `file_editor`
++# clipped it mid-line-72 and withheld 14 rules -- the doctest/testing conventions and
++# the whole deprecation-policy group -- while `cat` through the terminal tool returned
++# the file whole. Which tool an agent reaches for varies run to run: all four models
++# used `cat` in the pre-flight and two used `file_editor` in the rehearsal, so the
++# clip contaminated a RANDOM subset of guided cells rather than a fixed set of models.
++# That puts an uncontrolled difference inside the guided arm on the very axis the
++# experiment compares, and it reads as noise rather than as a defect.
++#
++# 24000 is chosen to clear the largest treatment plus `file_editor`'s line-number
++# prefixes (~18.7k for SymPy) with headroom. Django's file is 7,279 chars and was
++# never affected. Restore with constants.py.orig to return to stock.
++MAX_RESPONSE_LEN_CHAR: int = 24000
+ SNIPPET_CONTEXT_WINDOW: int = 4
+diff --git a/openhands-tools/openhands/tools/file_editor/utils/constants.py b/openhands-tools/openhands/tools/file_editor/utils/constants.py
+index 63f489f..b1d9dc5 100644
+--- a/openhands-tools/openhands/tools/file_editor/utils/constants.py
++++ b/openhands-tools/openhands/tools/file_editor/utils/constants.py
+@@ -1,4 +1,18 @@
+-MAX_RESPONSE_LEN_CHAR: int = 16000
++# DEVIATION FROM THE PINNED SDK -- deliberate, 2 Sep 2026. Upstream value: 16000.
++#
++# The SymPy guided treatment is 17,561 chars (142 rules). At 16000 `file_editor`
++# clipped it mid-line-72 and withheld 14 rules -- the doctest/testing conventions and
++# the whole deprecation-policy group -- while `cat` through the terminal tool returned
++# the file whole. Which tool an agent reaches for varies run to run: all four models
++# used `cat` in the pre-flight and two used `file_editor` in the rehearsal, so the
++# clip contaminated a RANDOM subset of guided cells rather than a fixed set of models.
++# That puts an uncontrolled difference inside the guided arm on the very axis the
++# experiment compares, and it reads as noise rather than as a defect.
++#
++# 24000 is chosen to clear the largest treatment plus `file_editor`'s line-number
++# prefixes (~18.7k for SymPy) with headroom. Django's file is 7,279 chars and was
++# never affected. Restore with constants.py.orig to return to stock.
++MAX_RESPONSE_LEN_CHAR: int = 24000
+ 
+ CONTENT_TRUNCATED_NOTICE = "<response clipped><NOTE>Due to the max output limit, only part of the full response has been shown to you.</NOTE>"  # noqa: E501
+ 

@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "swe-cc"
+version = "1.0.0"
+description = "SWE-CC: repository policy compliance checkers and evaluation for coding agents"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+# The checkers and scoring library use the standard library only.
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=9", "PyYAML>=6", "Jinja2>=3.1"]
+figures = ["matplotlib>=3.10", "numpy>=2"]
+all = ["swe-cc[test,figures]"]
+
+[project.scripts]
+# `swe-cc check ...` is the same as `python -m compliance check ...`.
+swe-cc = "compliance.cli:main"
+
+[tool.setuptools.packages.find]
+# Install in editable mode (`pip install -e .`): checkers read the policy corpora from
+# rules/ and scaffold configs from frameworks/ next to the package.
+include = ["compliance*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "tests"]
