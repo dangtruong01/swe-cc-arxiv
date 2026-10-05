@@ -1,5 +1,6 @@
 # Correct Code, Broken Contributions? SWE-CC: Benchmarking Repository Policy Compliance for Coding Agents
 
+[![Paper: Download PDF](https://img.shields.io/badge/Paper-Download%20PDF-red.svg)](https://github.com/dangtruong01/swe-cc-arxiv/raw/main/paper/SWE-CC.pdf)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 SWE-CC measures whether coding agents follow repository **contribution policies**
