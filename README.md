@@ -36,8 +36,9 @@ compliance rate remains 67.0%.
 
 Results are averaged over the four evaluated models. **Native** provides the locations of
 the governing policy documents and requires the agent to retrieve them. **Consolidated**
-provides the extracted policies directly. The full model-level results are available in
-[`paper/tables/table3.csv`](paper/tables/table3.csv) and in the paper.
+provides the extracted policies directly. The full model-level results are reported in the
+paper and can be regenerated from the released results with
+`python paper/make_tables.py --only table3`.
 
 ## What this release lets you reproduce
 
