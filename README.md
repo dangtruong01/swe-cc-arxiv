@@ -9,10 +9,6 @@ AI-assistance disclosure) while solving real issues. It checks both what agents 
 (their trajectories) and what they **delivered** (commits, patches, pull-request text).
 This repository provides the benchmark, evaluation code, and paper results.
 
-**Authors (paper order):** Truong Hai Dang (Singapore Management University), Rayner Goh
-(Singapore Management University), Thanh Le-Cong (Singapore University of Technology and
-Design), and Yintong Huo (Singapore Management University; corresponding author).
-
 **Keywords:** coding agents, software engineering benchmarks, repository policies,
 contribution compliance.
 
@@ -26,6 +22,22 @@ contribution compliance.
   mounted in the container as one file.
 - Works with **any agent**: ready-made runners for mini-SWE-agent and OpenHands, and a plain
   JSON trajectory format for everything else.
+
+## Main results
+
+Current agents resolve most tasks but satisfy substantially fewer applicable repository
+policies. Providing the policies directly improves compliance, although the best average
+compliance rate remains 67.0%.
+
+| Agent scaffold | Native resolve | Native compliance | Consolidated resolve | Consolidated compliance |
+|---|---:|---:|---:|---:|
+| mini-SWE-agent | 81.7% | 55.7% | 81.4% | 64.4% |
+| OpenHands | 83.9% | 58.2% | 83.1% | 67.0% |
+
+Results are averaged over the four evaluated models. **Native** provides the locations of
+the governing policy documents and requires the agent to retrieve them. **Consolidated**
+provides the extracted policies directly. The full model-level results are available in
+[`paper/tables/table3.csv`](paper/tables/table3.csv) and in the paper.
 
 ## What this release lets you reproduce
 
@@ -175,3 +187,17 @@ tables and figures.
 Code is released under the MIT License (`LICENSE`). Policy text and raw sources under
 `rules/` quote each project's contributor documentation and remain under that project's
 license. Tasks derive from SWE-bench Verified.
+
+## Citation
+
+If you use SWE-CC, please cite the paper. This provisional entry will be updated when the
+final publication metadata is available.
+
+```bibtex
+@misc{dang2027swecc,
+  title  = {Correct Code, Broken Contributions? {SWE-CC}: Benchmarking Repository Policy Compliance for Coding Agents},
+  author = {Dang, Truong Hai and Goh, Rayner and Le-Cong, Thanh and Huo, Yintong},
+  year   = {2027},
+  url    = {https://github.com/dangtruong01/swe-cc-arxiv}
+}
+```
